@@ -1,0 +1,31 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.main .search{
+    position: relative;
+    padding-right: 20px;
+}
+
+.main .search input{
+    width: 100%;
+    display: block;
+    padding: 8px 12px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    background: #7D7D7D;
+    border-radius: 8px;
+}
+
+::placeholder{
+    color: white;
+}
+
+.main .search i{
+    position: absolute;
+    font-size: 24px;
+    top: 10px;
+}

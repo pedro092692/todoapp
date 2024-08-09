@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+<!--css-->
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/task.css') }}">
+{% endblock css %}
+
 <!--title-->
 {% block title %}
     Home
@@ -7,4 +12,6 @@
 
 <!--content-->
 {% block content %}
+    <!--task-->
+    {% include 'includes/task_section.html' %}
 {% endblock content %}
