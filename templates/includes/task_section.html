@@ -5,23 +5,45 @@
     </div>
 
     <div class="title">
-        <p>
-            icon
-            Task
-        </p>
+        <div>
+            <i class="fa-regular fa-circle-check"></i>
+            <p>Task</p>
+        </div>
     </div>
 
     <div class="list">
-        task item
-        task item
+        {% for list_item in range(3)  %}
+        <div class="list-item">
+            <p>task name</p>
+            <input type="checkbox" name="checke" id="1">
+        </div>
+        {% endfor %}
     </div>
 
-    <div class="completed">
-        task completed
+    <div class="completed-container">
+        <div class="completed">
+            <p>Completed</p>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <div class="completed-list">
+            <div class="task">
+                <div class="task-info">
+                    <p class="name">Task name</p>
+                    <div class="due-date">
+                        <i class="fa-regular fa-calendar"></i>
+                        <p>Mon, Agu 6 2024</p>
+                    </div>
+                </div>
+                <div class="check">
+                    <input type="checkbox" name="checke" id="2" checked>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="add-task-container">
-        + add task
+        <p>+ add task</p>
     </div>
 
 </div>

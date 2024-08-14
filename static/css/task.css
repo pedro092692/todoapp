@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    height: 100%;
 }
 
 .main .search{
@@ -14,9 +15,13 @@
     font-size: 20px;
     font-weight: 600;
     color: white;
-    background: #7D7D7D;
+    background: #333333;
     border-radius: 8px;
     border: none;
+}
+
+input:focus{
+    outline: none;
 }
 
 
@@ -31,4 +36,106 @@
     bottom: 0%;
     top: 6px;
     padding-right: 12px;
+}
+
+
+.main .title div{
+    font-size: 24px;
+    font-weight: 700;
+    display: flex;
+    gap: 10px;
+
+}
+
+.main .list{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.main .list .list-item{
+    background: #323232;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+
+.main .completed-container{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex-grow:1;
+}
+
+.main .completed-container .completed{
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 500;
+    background: #2C2C2C;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.main .completed-container .completed-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    display: none;
+}
+
+.main .completed-container .completed-list .task{
+    background: #323232;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.main .completed-container .completed-list .task .task-info{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-info .name{
+    font-size: 24px;
+
+}
+
+.task-info .due-date{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.task-info i{
+    font-size: 18px;
+}
+
+.task-info p{
+    font-size: 16px;
+}
+
+.main .add-task-container{
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: 500;
+    text-transform: capitalize;
+    background: #323232;
+    cursor: pointer;
+}
+
+.main .add-task-container p{
+    color: #2B98DD;
 }
