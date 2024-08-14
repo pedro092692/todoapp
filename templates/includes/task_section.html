@@ -1,49 +1,53 @@
 <div class="main">
-    <div class="search">
-        <input type="text" name="search" id="" placeholder="search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-    </div>
-
-    <div class="title">
-        <div>
-            <i class="fa-regular fa-circle-check"></i>
-            <p>Task</p>
-        </div>
-    </div>
-
-    <div class="list">
-        {% for list_item in range(3)  %}
-        <div class="list-item">
-            <p>task name</p>
-            <input type="checkbox" name="checke" id="1">
-        </div>
-        {% endfor %}
-    </div>
-
-    <div class="completed-container">
-        <div class="completed">
-            <p>Completed</p>
-            <i class="fa-solid fa-chevron-right"></i>
+    <!--task-->
+    <div class="task-container">
+        <div class="search">
+            <input type="text" name="search" id="" placeholder="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
         </div>
 
-        <div class="completed-list">
-            <div class="task">
-                <div class="task-info">
-                    <p class="name">Task name</p>
-                    <div class="due-date">
-                        <i class="fa-regular fa-calendar"></i>
-                        <p>Mon, Agu 6 2024</p>
+        <div class="title">
+            <div>
+                <i class="fa-regular fa-circle-check"></i>
+                <p>Task</p>
+            </div>
+        </div>
+
+        <div class="list">
+            {% for list_item in range(3)  %}
+            <div class="list-item">
+                <p>task name</p>
+                <input type="checkbox" name="checke" id="1">
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="completed-container">
+            <div class="completed">
+                <p>Completed</p>
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+
+            <div class="completed-list">
+                <div class="task">
+                    <div class="task-info">
+                        <p class="name">Task name</p>
+                        <div class="due-date">
+                            <i class="fa-regular fa-calendar"></i>
+                            <p>Mon, Agu 6 2024</p>
+                        </div>
                     </div>
-                </div>
-                <div class="check">
-                    <input type="checkbox" name="checke" id="2" checked>
+                    <div class="check">
+                        <input type="checkbox" name="checke" id="2" checked>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="add-task-container">
-        <p>+ add task</p>
+        <div class="add-task-container">
+            <p>+ add task</p>
+        </div>
     </div>
-
+    <!-- more info section-->
+    {% include 'includes/more-info.html' %}
 </div>
