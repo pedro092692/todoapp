@@ -42,6 +42,15 @@
                     </div>
                 </div>
             </div>
+
+            <div>
+                <form method="POST" id="form" autocomplete="off">
+                    <input type="text" name="number" id="input">
+                </form>
+                <turbo-frame id="show-number">
+                    {% include 'includes/number.html' %}
+                </turbo-frame>
+            </div>
         </div>
 
         <div class="add-task-container">

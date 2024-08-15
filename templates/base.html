@@ -22,6 +22,8 @@
         {% block title %}
         {% endblock title %}
     </title>
+<!--    turbo-->
+    {{ turbo() }}
 </head>
 <body>
     {% include 'includes/nav.html' %}
@@ -33,6 +35,8 @@
 
 <!--    js-->
     {%  block js %}
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
     {% endblock js %}
+
 </body>
 </html>

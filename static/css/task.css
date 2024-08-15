@@ -246,3 +246,8 @@ input:focus{
 .task-date div i{
     cursor: pointer;
 }
+
+#number{
+    font-size: 32px;
+    color: white;
+}
