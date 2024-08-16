@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+<!--css-->
+{% block stylesheet %}
+{% endblock %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+    <div class="contain">
+        <h2>Create new account</h2>
+        <div class="form-container">
+            <form action="" method="POST">
+                {{ login_user_form.csrf_token }}
+                {{ login_user_form.email(placeholder='Email') }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

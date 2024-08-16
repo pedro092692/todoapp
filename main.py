@@ -1,36 +1,34 @@
 from flask import Flask, url_for, request, render_template, redirect
 from dotenv import load_dotenv
 from turbo_flask import Turbo
-import time
-import threading
+from flask_security import login_required, current_user
+from database import DataBase
+import os
 
 
 # load env
 load_dotenv()
 
+# setup app
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 # Turbo flask
 turbo = Turbo(app)
 
+# flask security
+app.config['SECURITY_REGISTERABLE'] = True
+app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
+
+# database
+db = DataBase(app)
+db.create_tables()
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    number = 0
-    if request.method == 'POST':
-        number = request.form.get('number')
-    if turbo.can_stream():
-        print('hi pedro')
-        print(number)
-        return turbo.stream(
-            turbo.update(render_template('includes/number.html', number=number), target='number')
-        )
+    return render_template('index.html')
 
 
-    return render_template('index.html', number=number)
-
-@app.route('/some')
-def some():
-    return 'some'
 
 
 if __name__ == "__main__":
