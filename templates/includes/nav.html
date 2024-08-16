@@ -25,9 +25,16 @@
     </div>
     <div class="container">
         <a href="">
+
             <div>
                 <i class="fa-solid fa-gear"></i>
-                <p>Your account</p>
+                {% if current_user.is_authenticated %}
+                    <p>Your account</p>
+                {% else %}
+                    <a href="{{ url_for('login') }}">
+                        Login
+                    </a>
+                {% endif %}
             </div>
         </a>
     </div>

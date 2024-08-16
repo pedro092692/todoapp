@@ -24,11 +24,21 @@ app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
 db = DataBase(app)
 db.create_tables()
 
+
 @app.route('/', methods=['GET', 'POST'])
+@login_required
 def home():
     return render_template('index.html')
 
 
+@app.route('/login')
+def login():
+    return render_template('security/login_user.html')
+
+
+@app.route('/register')
+def register():
+    return render_template('security/register_user.html')
 
 
 if __name__ == "__main__":

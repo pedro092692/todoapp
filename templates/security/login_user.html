@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 <!--css-->
-{% block stylesheet %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/security/register.css') }}">
 {% endblock %}
 
 {% block title %}
@@ -9,12 +10,14 @@ Login
 {% endblock %}
 
 {% block content %}
-    <div class="contain">
+    <div class="login-container">
         <h2>Create new account</h2>
         <div class="form-container">
             <form action="" method="POST">
                 {{ login_user_form.csrf_token }}
                 {{ login_user_form.email(placeholder='Email') }}
+                {{ login_user_form.password(placeholder='Password') }}
+                {{ login_user_form.submit(value='Login') }}
             </form>
         </div>
     </div>

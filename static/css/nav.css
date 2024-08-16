@@ -62,3 +62,7 @@ nav .nav-content div p{
     font-weight: 600;
 }
 
+nav .container a{
+    color: inherit;
+}
+

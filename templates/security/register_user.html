@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+<!--css-->
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/security/register.css') }}">
+{% endblock %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+    <div class="login-container">
+        <h2>Create new account</h2>
+        <div class="form-container">
+            <form action="" method="POST">
+                {{ register_user_form.csrf_token }}
+                {{ register_user_form.email(placeholder='Email') }}
+                {{ register_user_form.password(placeholder='Password') }}
+                {{ register_user_form.password_confirm(placeholder='Confirm Password') }}
+                {{ register_user_form.submit(value='Register') }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
