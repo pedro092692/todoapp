@@ -247,7 +247,26 @@ input:focus{
     cursor: pointer;
 }
 
-#number{
-    font-size: 32px;
-    color: white;
+.task-container .no-task{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+#add-button{
+}
+
+#add-form{
+    display: none;
+}
+
+#add-form input[type=text]{
+    border: none;
+    color: #2B98DD;
+    font-size: 24px;
+    font-weight: 500;
+    background: none;
+    padding: 0px;
+    height: 24px;
+
 }

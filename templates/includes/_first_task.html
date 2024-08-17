@@ -1,13 +1,10 @@
-<div class="main">
-    <!--task-->
-    <div class="task-container" id="task-container">
+<div class="task-container" id="task-container">
         <!--        check if user has tasks-->
-        {% if current_user.tasks %}
         <div class="search">
             <input type="text" name="search" id="" placeholder="search">
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
-        {% endif %}
+
         <div class="title">
             <div>
                 <i class="fa-regular fa-circle-check"></i>
@@ -57,12 +54,10 @@
         {% endif %}
 
         <div class="add-task-container">
-            <p id="add-button">+ add task</p>
-            <form action="" method="POST" id="add-form" class="add-form" autocomplete="off">
+            <p>+ add task</p>
+            <form action="" method="POST">
                 <input type="text" name="task_title">
+                <input type="submit" value="add">
             </form>
         </div>
     </div>
-    <!-- more info section-->
-    {% include 'includes/more-info.html' %}
-</div>

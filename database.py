@@ -4,6 +4,7 @@ from sqlalchemy import Integer, String, Boolean, ForeignKey, DateTime
 from flask_security import Security, SQLAlchemyUserDatastore, hash_password
 from flask_security.models import fsqla_v3 as fsqla
 from datetime import datetime
+from typing import List
 import os
 
 
@@ -27,6 +28,7 @@ class User(db.Model, fsqla.FsUserMixin):
     email: Mapped[str] = mapped_column(String, nullable=False)
     password: Mapped[str] = mapped_column(String, nullable=False)
     fs_uniquifier: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+    tasks: Mapped[List["Task"]] = relationship(order_by="Task.id.desc()")
 
 
 class Task(db.Model):
@@ -36,6 +38,20 @@ class Task(db.Model):
     completed: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     date: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.now())
 
+    @staticmethod
+    def create_task(user_id, title):
+        new_task = Task(
+            user_id=user_id,
+            title=title
+        )
+        db.session.add(new_task)
+        db.session.commit()
+        return new_task
+
+    @staticmethod
+    def get_task(task_id):
+        task = db.get_or_404(Task, task_id)
+        return task
 
 class DataBase:
 
