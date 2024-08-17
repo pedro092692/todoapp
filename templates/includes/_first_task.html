@@ -1,63 +1,56 @@
-<div class="task-container" id="task-container">
-        <!--        check if user has tasks-->
-        <div class="search">
-            <input type="text" name="search" id="" placeholder="search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
+<div class="show-task" id="task-container">
+    <!--        check if user has tasks-->
+    {% if current_user.tasks %}
+    <div class="search">
+        <input type="text" name="search" id="" placeholder="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    {% endif %}
+    <div class="title">
+        <div>
+            <i class="fa-regular fa-circle-check"></i>
+            <p>Task</p>
 
-        <div class="title">
-            <div>
-                <i class="fa-regular fa-circle-check"></i>
-                <p>Task</p>
-
-            </div>
-        </div>
-<!--        check if user has tasks-->
-        {% if current_user.tasks %}
-            <div class="list" id="task-list">
-                {% for task in current_user.tasks %}
-                    <div class="list-item">
-                        <p>{{ task.title }}</p>
-                        <input type="checkbox" name="check-task" id="{{ task.id }}">
-                    </div>
-                {% endfor %}
-            </div>
-
-            <div class="completed-container">
-                <div class="completed">
-                    <p>Completed</p>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-
-                <div class="completed-list">
-                    <div class="task">
-                        <div class="task-info">
-                            <p class="name">Task name</p>
-                            <div class="due-date">
-                                <i class="fa-regular fa-calendar"></i>
-                                <p>Mon, Agu 6 2024</p>
-                            </div>
-                        </div>
-                        <div class="check">
-                            <input type="checkbox" name="checke" id="2" checked>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% else %}
-            <div class="title no-task" id="no-task">
-                <div>
-                    <p>No tasks, add new one.</p>
-                    <i class="fa-regular fa-face-frown"></i>
-                </div>
-            </div>
-        {% endif %}
-
-        <div class="add-task-container">
-            <p>+ add task</p>
-            <form action="" method="POST">
-                <input type="text" name="task_title">
-                <input type="submit" value="add">
-            </form>
         </div>
     </div>
+<!--        check if user has tasks-->
+    {% if current_user.tasks %}
+        <div class="list" id="task-list">
+            {% for task in current_user.tasks %}
+                <div class="list-item">
+                    <p>{{ task.title }}</p>
+                    <input type="checkbox" name="check-task" id="{{ task.id }}">
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="completed-container">
+            <div class="completed">
+                <p>Completed</p>
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+
+            <div class="completed-list">
+                <div class="task">
+                    <div class="task-info">
+                        <p class="name">Task name</p>
+                        <div class="due-date">
+                            <i class="fa-regular fa-calendar"></i>
+                            <p>Mon, Agu 6 2024</p>
+                        </div>
+                    </div>
+                    <div class="check">
+                        <input type="checkbox" name="checke" id="2" checked>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="title no-task" id="no-task">
+            <div>
+                <p>No tasks, add new one.</p>
+                <i class="fa-regular fa-face-frown"></i>
+            </div>
+        </div>
+    {% endif %}
+</div>

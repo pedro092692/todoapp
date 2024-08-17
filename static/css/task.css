@@ -14,6 +14,13 @@
     padding: 20px 24px;
 }
 
+.main .task-container .show-task{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 24px;
+}
+
 .main .search{
     position: relative;
 }
@@ -258,9 +265,13 @@ input:focus{
 
 #add-form{
     display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 #add-form input[type=text]{
+    flex-grow: 1;
     border: none;
     color: #2B98DD;
     font-size: 24px;
@@ -269,4 +280,13 @@ input:focus{
     padding: 0px;
     height: 24px;
 
+}
+
+#add-form input[type=submit]{
+    height: 24px;
+    border: none;
+    color: #2B98DD;
+    font-size: 16px;
+    background: #2B2828;
+    cursor: pointer;
 }
