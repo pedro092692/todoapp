@@ -2,8 +2,11 @@
     <!--        check if user has tasks-->
     {% if current_user.tasks %}
     <div class="search">
-        <input type="text" name="search" id="" placeholder="search">
-        <i class="fa-solid fa-magnifying-glass"></i>
+        <form action="" method="POST" id="search-form" autocomplete="off">
+            <input type="text" name="search" id="search-input" placeholder="search">
+            <input type="hidden" name="search-form">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </form>
     </div>
     {% endif %}
     <div class="title">
@@ -54,3 +57,4 @@
         </div>
     {% endif %}
 </div>
+<script src="{{ url_for('static', filename='js/app.js') }}" defer></script>

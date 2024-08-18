@@ -1,12 +1,16 @@
-//function send_form(){
-//    form = document.getElementById('form');
-//    input = document.getElementById('input');
-//    input.addEventListener('keyup', function(){
-//        form.requestSubmit();
-//    })
-//}
+function send_search_form(){
+    try{
+        form = document.getElementById('search-form');
+        input = document.getElementById('search-input');
+        input.addEventListener('keyup', function(){
+            form.requestSubmit();
+        })
+    }catch{
+        //pass
+    }
+}
 
-//send_form();
+
 
 function show_add_form(){
     const add_button = document.getElementById('add-button');
@@ -26,7 +30,11 @@ function show_add_form(){
        form.children[0].focus();
     })
 
-    form.addEventListener('submit', hide_form)
+    form.addEventListener('submit', (event)=>{
+        form.children[1].value = form.children[0].value;
+        form.children[0].value = '';
+
+    })
 
 
 
@@ -37,3 +45,4 @@ function show_add_form(){
 }
 
 show_add_form();
+send_search_form();

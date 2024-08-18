@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, Boolean, ForeignKey, DateTime
+from sqlalchemy import Integer, String, Boolean, ForeignKey, DateTime, func, and_
 from flask_security import Security, SQLAlchemyUserDatastore, hash_password
 from flask_security.models import fsqla_v3 as fsqla
 from datetime import datetime
@@ -52,6 +52,14 @@ class Task(db.Model):
     def get_task(task_id):
         task = db.get_or_404(Task, task_id)
         return task
+
+    @staticmethod
+    def search(user_id, query):
+        task = db.session.execute(db.select(Task).filter(
+            Task.user_id == user_id, Task.title.icontains(query)
+        ).order_by(Task.id.desc())).scalars().all()
+        return task
+
 
 class DataBase:
 

@@ -2,7 +2,7 @@ from flask import Flask, url_for, request, render_template, redirect
 from dotenv import load_dotenv
 from turbo_flask import Turbo
 from flask_security import login_required, current_user
-from database import DataBase, Task
+from database import DataBase, Task, User
 import os
 
 
@@ -28,19 +28,26 @@ db.create_tables()
 @app.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    if request.method == 'POST':
-        task_title = request.form.get('task_title')
-
+    if request.method == 'POST' and 'add-form' in request.form:
+        print('this is add form')
+        task_title = request.form.get('task')
+        print(task_title)
         new_task = Task.create_task(
             user_id=current_user.id,
             title=task_title
         )
 
         if len(current_user.tasks) > 1:
-            return add_task(template='_task-item.html', target='task-list', method='prepend', task=new_task)
+            return render_frame(template='_task-item.html', target='task-list', method='prepend', content=new_task)
 
         else:
-            return add_task(template='_first_task.html', target='task-container', method='replace', task=None)
+            return render_frame(template='_first_task.html', target='task-container', method='replace', content=None)
+
+    if request.method == 'POST' and 'search-form' in request.form:
+        query = request.form.get('search')
+        user_task = Task.search(user_id=current_user.id, query=query)
+
+        return render_frame(template='_task_list.html', target='task-list', method='update', content=user_task)
 
     return render_template('index.html')
 
@@ -57,7 +64,7 @@ def register():
     return render_template('security/register_user.html')
 
 
-def add_task(template, target, method, task):
+def render_frame(template, target, method, content, ):
     """
     :param str template this is the template to be render:
     :param str target the target where turbo replace update or remove :
@@ -68,7 +75,7 @@ def add_task(template, target, method, task):
     _method = getattr(turbo, method)
     if turbo.can_stream():
         return turbo.stream(
-            _method(render_template(f'includes/{template}', task=task), target=target)
+            _method(render_template(f'includes/{template}', content=content), target=target)
         )
 
 
