@@ -37,6 +37,7 @@ class Task(db.Model):
     title: Mapped[str] = mapped_column(String, nullable=False)
     completed: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     date: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.now())
+    sub_tasks: Mapped[List["SubTask"]] = relationship(order_by="SubTask.id.desc()")
 
     @staticmethod
     def create_task(user_id, title):
@@ -59,6 +60,13 @@ class Task(db.Model):
             Task.user_id == user_id, Task.title.icontains(query)
         ).order_by(Task.id.desc())).scalars().all()
         return task
+
+
+class SubTask(db.Model):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    task_id: Mapped[int] = mapped_column(Integer, ForeignKey("task.id"))
+    title: Mapped[str] = mapped_column(String, nullable=False)
+    completed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
 
 class DataBase:
