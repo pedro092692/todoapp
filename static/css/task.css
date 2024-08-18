@@ -197,7 +197,10 @@ input:focus{
     font-size: 24px;
     font-weight: 600;
     cursor: pointer;
+    word-break: break-word;
 }
+
+
 
 .task-detail .task-steps{
     display: flex;
@@ -264,7 +267,7 @@ input:focus{
 #add-button{
 }
 
-#add-form{
+#add-form, #add-step-form{
     display: none;
     align-items: center;
     justify-content: space-between;
@@ -290,4 +293,29 @@ input:focus{
     font-size: 16px;
     background: #2B2828;
     cursor: pointer;
+}
+
+#add-step-form input[type=text]{
+    border: none;
+    color: #2B98DD;
+    font-size: 24px;
+    font-weight: 500;
+    background: none;
+    padding: 0px;
+    height: 24px;
+    width: 100%;
+
+}
+
+#add-step-form input[type=submit]{
+    height: 24px;
+    border: none;
+    color: #2B98DD;
+    font-size: 16px;
+    background: #2B2828;
+    cursor: pointer;
+}
+
+.task-detail .d-none{
+    display: none;
 }

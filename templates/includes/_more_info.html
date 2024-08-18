@@ -7,17 +7,25 @@
             <p>{{ content.title }}</p>
             <input type="checkbox" name="checked" id="3">
         </div>
-        <div class="task-steps">
-            <div class="step">
-                <p>task step</p>
-                <input type="checkbox" name="checked" id="6">
-            </div>
-<!--            divider-->
-            <div class="divider">
-            </div>
+        <div class="task-steps {{ 'd-none' if not content.sub_tasks  }}" id="task-steps">
+            {% for subtask in content.sub_tasks %}
+                <div class="step">
+                    <p>{{ subtask.title }}</p>
+                    <input type="checkbox" name="checked" id="{{ subtask.id }}">
+                </div>
+    <!--            divider-->
+                <div class="divider">
+                </div>
+            {% endfor %}
         </div>
         <div class="add-step">
-            <p>+ Add step</p>
+            <p id="add-step">+ Add step</p>
+            <form action="" method="POST" id="add-step-form" class="add-step-form" autocomplete="off">
+                <input type="text" name="step_title" id="step-input">
+                <input type="hidden" name="step" id="step">
+                <input type="hidden" name="task_id" value="{{content.id}}">
+                <input type="submit" name="add-step-form" value="Add">
+            </form>
         </div>
     </div>
 
@@ -28,3 +36,4 @@
         </div>
     </div>
 
+<script src="{{ url_for('static', filename='js/step.js') }}" defer></script>

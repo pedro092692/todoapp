@@ -68,6 +68,16 @@ class SubTask(db.Model):
     title: Mapped[str] = mapped_column(String, nullable=False)
     completed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
+    @staticmethod
+    def add_step(task_id, title):
+        new_step = SubTask(
+            task_id=task_id,
+            title=title
+        )
+        db.session.add(new_step)
+        db.session.commit()
+        return new_step
+
 
 class DataBase:
 

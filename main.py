@@ -2,7 +2,7 @@ from flask import Flask, url_for, request, render_template, redirect
 from dotenv import load_dotenv
 from turbo_flask import Turbo
 from flask_security import login_required, current_user
-from database import DataBase, Task, User
+from database import DataBase, Task, SubTask
 import os
 
 
@@ -31,8 +31,8 @@ db.create_tables()
 @app.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    # add task
     if request.method == 'POST' and 'add-form' in request.form:
-        print('this is add form')
         task_title = request.form.get('task')
         print(task_title)
         new_task = Task.create_task(
@@ -45,7 +45,7 @@ def home():
 
         else:
             return render_frame(template='_first_task.html', target='task-container', method='replace', content=None)
-
+    # search task
     if request.method == 'POST' and 'search-form' in request.form:
         query = request.form.get('search')
         user_task = Task.search(user_id=current_user.id, query=query)
@@ -58,12 +58,21 @@ def home():
                 ])
             else:
                 return render_frame(template='_first_task.html', target='task-container', method='replace', content=None)
-
+    # show task detail
     if request.method == 'POST' and 'task-id' in request.form:
         task_id = request.form.get('task-id')
         task = Task.get_task(task_id)
         return render_frame(template='_more_info.html', target='more-info', method='update', content=task)
 
+    # add task step
+    if request.method == 'POST' and 'add-step-form' in request.form:
+        task_id = request.form.get('task_id')
+        title = request.form.get('step')
+        new_step = SubTask.add_step(
+            task_id=task_id,
+            title=title
+        )
+        return render_frame(template='_step_item.html', target='task-steps', method='prepend', content=new_step)
 
     return render_template('index.html')
 
