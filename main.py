@@ -47,7 +47,16 @@ def home():
         query = request.form.get('search')
         user_task = Task.search(user_id=current_user.id, query=query)
 
-        return render_frame(template='_task_list.html', target='task-list', method='update', content=user_task)
+        if turbo.can_stream():
+            if query != '':
+                print(len(user_task))
+                return turbo.stream([
+                    turbo.update(render_template('includes/_task_list.html', content=user_task), target='task-list'),
+                    turbo.remove(target='completed')
+                ])
+            else:
+                return render_frame(template='_first_task.html', target='task-container', method='replace', content=None)
+
 
     return render_template('index.html')
 
