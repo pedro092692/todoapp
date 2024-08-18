@@ -12,6 +12,9 @@ load_dotenv()
 # setup app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+# humanize date in jinja2
+# pip install jinja2-humanize-extension
+app.jinja_options['extensions'] = ['jinja2_humanize_extension.HumanizeExtension']
 
 # Turbo flask
 turbo = Turbo(app)
@@ -49,13 +52,17 @@ def home():
 
         if turbo.can_stream():
             if query != '':
-                print(len(user_task))
                 return turbo.stream([
                     turbo.update(render_template('includes/_task_list.html', content=user_task), target='task-list'),
                     turbo.remove(target='completed')
                 ])
             else:
                 return render_frame(template='_first_task.html', target='task-container', method='replace', content=None)
+
+    if request.method == 'POST' and 'task-id' in request.form:
+        task_id = request.form.get('task-id')
+        task = Task.get_task(task_id)
+        return render_frame(template='_more_info.html', target='more-info', method='update', content=task)
 
 
     return render_template('index.html')

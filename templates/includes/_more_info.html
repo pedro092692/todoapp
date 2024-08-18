@@ -1,10 +1,10 @@
  <div class="close">
-        <i class="fa-solid fa-circle-xmark"></i>
+        <i class="fa-solid fa-circle-xmark" id="close" onclick="close_panel()"></i>
     </div>
 
     <div class="task-detail">
         <div class="task">
-            <p>{{ content.name }}</p>
+            <p>{{ content.title }}</p>
             <input type="checkbox" name="checked" id="3">
         </div>
         <div class="task-steps">
@@ -23,7 +23,8 @@
 
     <div class="task-date">
         <div>
-            <p>{{ content.date }}</p>
+            <p>{{ content.date|humanize_naturaldate() }}</p>
             <i class="fa-solid fa-trash-can"></i>
         </div>
     </div>
+

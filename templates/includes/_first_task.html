@@ -20,9 +20,12 @@
     {% if current_user.tasks %}
         <div class="list" id="task-list">
             {% for task in current_user.tasks %}
-                <div class="list-item">
+                <div class="list-item" id="list-item-{{task.id}}" onclick="show_detail(this)">
                     <p>{{ task.title }}</p>
                     <input type="checkbox" name="check-task" id="{{ task.id }}">
+                    <form action="" method="POST" style="display: none">
+                        <input type="hidden" name="task-id" value="{{ task.id }}">
+                    </form>
                 </div>
             {% endfor %}
         </div>
@@ -57,4 +60,18 @@
         </div>
     {% endif %}
 </div>
-<script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+
+<script>
+    function send_search_form(){
+    try{
+        form = document.getElementById('search-form');
+        input = document.getElementById('search-input');
+        input.addEventListener('keyup', function(){
+            form.requestSubmit();
+        })
+    }catch{
+        //pass
+    }
+}
+send_search_form();
+</script>

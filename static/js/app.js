@@ -34,6 +34,7 @@ function show_add_form(){
         form.children[1].value = form.children[0].value;
         form.children[0].value = '';
 
+        console.log('value of task', form.children[1].value)
     })
 
 
@@ -44,5 +45,20 @@ function show_add_form(){
     }
 }
 
+function show_detail(task){
+    const panel = document.getElementById('more-info');
+    let form = task.children[2];
+    form.requestSubmit();
+    panel.style.display = 'flex';
+
+}
+
+function close_panel(){
+    const panel_section = document.getElementById('more-info');
+    panel_section.style.display = 'none';
+
+}
+
 show_add_form();
 send_search_form();
+

@@ -167,6 +167,7 @@ input:focus{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    display: none;
 }
 
 .more-info .close{
