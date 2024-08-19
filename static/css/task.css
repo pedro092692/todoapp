@@ -69,15 +69,36 @@ input:focus{
     gap: 8px;
 }
 
+.main .task-container .list .task-item-container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.task-item-container .check{
+    background: #323232;
+    padding: 0px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-radius: 8px 0px 0px 8px;
+}
+
+.check input[type=checkbox]{
+    cursor: pointer;
+    transform: scale(1.3);
+}
+
 .main .task-container .list .list-item{
     background: #323232;
     font-size: 24px;
     font-weight: 600;
-    padding: 12px;
+    padding: 12px 12px 12px 8px;
     display: flex;
-    justify-content: space-between;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 0px 8px 8px 0px;
+    flex-grow: 1;
 }
 
 

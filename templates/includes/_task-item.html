@@ -1,7 +1,18 @@
-<div class="list-item" id="list-item-{{content.id}}" onclick="show_detail(this)">
-    <p>{{ content.title }}</p>
-    <input type="checkbox" name="check-task" id="{{ content.id }}">
-    <form action="" method="POST" style="display: none">
-        <input type="hidden" name="task-id" value="{{ content.id }}">
-    </form>
+<div class="task-item-container">
+    <!--                            checkbox-->
+    <div class="check">
+        <form action="">
+            <input type="hidden" name="{{ content.id }}">
+            <input type="checkbox" name="check-task" id="{{ content.id }}" onclick="completed_task(this);">
+        </form>
+    </div>
+
+    <!--                            task info-->
+    <div class="list-item" id="list-item-{{content.id}}" onclick="show_detail(this)">
+        <p>{{ content.title }}</p>
+        <form action="" method="POST" style="display: none" id="form-{{content.id}}">
+            <input type="hidden" name="task-id" value="{{ content.id }}">
+        </form>
+    </div>
 </div>
+

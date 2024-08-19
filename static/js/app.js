@@ -10,8 +10,6 @@ function send_search_form(){
     }
 }
 
-
-
 function show_add_form(form_id, trigger){
     try{
         const add_button = document.getElementById(trigger);
@@ -51,7 +49,7 @@ function show_add_form(form_id, trigger){
 
 function show_detail(task){
     const panel = document.getElementById('more-info');
-    let form = task.children[2];
+    let form = task.children[1];
     form.requestSubmit();
     panel.style.display = 'flex';
 
@@ -65,6 +63,11 @@ function close_panel(){
     }
     panel_section.style.display = 'none';
 
+}
+
+function completed_task(checkbox){
+    let id = checkbox.getAttribute('id');
+    let form = document.getElementById('form-' + id);
 }
 
 show_add_form('add-form', 'add-button');
