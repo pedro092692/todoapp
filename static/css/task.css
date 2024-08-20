@@ -148,6 +148,10 @@ input:focus{
 
 }
 
+.completed-task{
+    text-decoration: line-through;
+}
+
 .task-info .due-date{
     display: flex;
     gap: 10px;

@@ -1,0 +1,12 @@
+<div class="task">
+    <div class="task-info">
+        <p class="name completed-task">{{ content.title }}</p>
+        <div class="due-date">
+            <i class="fa-regular fa-calendar"></i>
+            <p>{{ content.date|humanize_naturaldate() }}</p>
+        </div>
+    </div>
+    <div class="check">
+        <input type="checkbox" name="checked" id="2" checked>
+    </div>
+</div>

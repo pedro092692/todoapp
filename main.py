@@ -88,7 +88,8 @@ def home():
             return turbo.stream([
                 turbo.remove(target=f'task-item-container-{task_id}'),
                 turbo.replace(render_template('includes/_completed_number.html', completed_task=completed),
-                              target='completed-number')
+                              target='completed-number'),
+                turbo.append(render_template('includes/_completed_task.html', content=task), target='completed-list')
             ])
 
     return render_template('index.html', completed_task=completed)
