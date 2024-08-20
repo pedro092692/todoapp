@@ -23,30 +23,30 @@
             {% if current_user.tasks %}
                 <div class="list" id="task-list">
                     {% for task in current_user.tasks %}
-                        <div class="task-item-container">
-<!--                            checkbox-->
-                            <div class="check">
-                                <form action="">
-                                    <input type="hidden" name="{{ task.id }}">
-                                    <input type="checkbox" name="check-task" id="{{ task.id }}" onclick="completed_task(this);">
-                                </form>
+                        {% if not task.completed %}
+                            <div class="task-item-container" id="task-item-container-{{ task.id }}">
+    <!--                            checkbox-->
+                                <div class="check">
+                                    <form action="" method="POST" id="check-{{task.id}}">
+                                        <input type="hidden" name="task-check" value="{{ task.id }}">
+                                        <input type="checkbox" name="check" id="{{ task.id }}" onclick="completed_task(this);">
+                                    </form>
+                                </div>
+
+    <!--                            task info-->
+                                <div class="list-item" id="list-item-{{task.id}}" onclick="show_detail(this)">
+                                    <p>{{ task.title }}</p>
+                                    <form action="" method="POST" style="display: none" id="form-{{task.id}}">
+                                        <input type="hidden" name="task-id" value="{{ task.id }}">
+                                    </form>
+                                </div>
                             </div>
-                            
-<!--                            task info-->
-                            <div class="list-item" id="list-item-{{task.id}}" onclick="show_detail(this)">
-                                <p>{{ task.title }}</p>
-                                <form action="" method="POST" style="display: none" id="form-{{task.id}}">
-                                    <input type="hidden" name="task-id" value="{{ task.id }}">
-                                </form>
-                            </div>
-                        </div>
-                        
+                        {% endif %}
                     {% endfor %}
                 </div>
-
                 <div class="completed-container" id="completed-task">
                     <div class="completed" id="completed">
-                        <p>Completed</p>
+                        <p id="completed-number">Completed {{completed_task}}</p>
                         <i class="fa-solid fa-chevron-right"></i>
                     </div>
 

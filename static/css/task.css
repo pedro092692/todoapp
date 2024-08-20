@@ -124,7 +124,6 @@ input:focus{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    display: none;
 }
 
 .main .task-container .completed-container .completed-list .task{

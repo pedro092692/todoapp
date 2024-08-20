@@ -1,65 +1,76 @@
 <div class="show-task" id="task-container">
-    <!--        check if user has tasks-->
-    {% if current_user.tasks %}
-    <div class="search">
-        <form action="" method="POST" id="search-form" autocomplete="off">
-            <input type="text" name="search" id="search-input" placeholder="search">
-            <input type="hidden" name="search-form">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </form>
-    </div>
-    {% endif %}
-    <div class="title">
-        <div>
-            <i class="fa-regular fa-circle-check"></i>
-            <p>Task</p>
-
-        </div>
-    </div>
-<!--        check if user has tasks-->
-    {% if current_user.tasks %}
-        <div class="list" id="task-list">
-            {% for task in current_user.tasks %}
-                <div class="list-item" id="list-item-{{task.id}}" onclick="show_detail(this)">
-                    <p>{{ task.title }}</p>
-                    <input type="checkbox" name="check-task" id="{{ task.id }}">
-                    <form action="" method="POST" style="display: none">
-                        <input type="hidden" name="task-id" value="{{ task.id }}">
-                    </form>
-                </div>
-            {% endfor %}
-        </div>
-
-        <div class="completed-container" id="completed-task">
-            <div class="completed" id="completed">
-                <p>Completed</p>
-                <i class="fa-solid fa-chevron-right"></i>
+            <!--        check if user has tasks-->
+            {% if current_user.tasks %}
+            <div class="search">
+                <form action="" method="POST" id="search-form" autocomplete="off">
+                    <input type="text" name="search" id="search-input" placeholder="search">
+                    <input type="hidden" name="search-form">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </form>
             </div>
+            {% endif %}
+            <div class="title">
+                <div>
+                    <i class="fa-regular fa-circle-check"></i>
+                    <p>Task</p>
 
-            <div class="completed-list">
-                <div class="task">
-                    <div class="task-info">
-                        <p class="name">Task name</p>
-                        <div class="due-date">
-                            <i class="fa-regular fa-calendar"></i>
-                            <p>Mon, Agu 6 2024</p>
+                </div>
+            </div>
+    <!--        check if user has tasks-->
+            {% if current_user.tasks %}
+                <div class="list" id="task-list">
+                    {% for task in current_user.tasks %}
+                        {% if not task.completed %}
+                            <div class="task-item-container" id="task-item-container-{{ task.id }}">
+    <!--                            checkbox-->
+                                <div class="check">
+                                    <form action="" method="POST" id="check-{{task.id}}">
+                                        <input type="hidden" name="task-check" value="{{ task.id }}">
+                                        <input type="checkbox" name="check" id="{{ task.id }}" onclick="completed_task(this);">
+                                    </form>
+                                </div>
+
+    <!--                            task info-->
+                                <div class="list-item" id="list-item-{{task.id}}" onclick="show_detail(this)">
+                                    <p>{{ task.title }}</p>
+                                    <form action="" method="POST" style="display: none" id="form-{{task.id}}">
+                                        <input type="hidden" name="task-id" value="{{ task.id }}">
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="completed-container" id="completed-task">
+                    <div class="completed" id="completed">
+                        <p id="completed-number">Completed {{content}}</p>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+
+                    <div class="completed-list">
+                        <div class="task">
+                            <div class="task-info">
+                                <p class="name">Task name</p>
+                                <div class="due-date">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <p>Mon, Agu 6 2024</p>
+                                </div>
+                            </div>
+                            <div class="check">
+                                <input type="checkbox" name="checke" id="2" checked>
+                            </div>
                         </div>
                     </div>
-                    <div class="check">
-                        <input type="checkbox" name="checke" id="2" checked>
+                </div>
+            {% else %}
+                <div class="title no-task" id="no-task">
+                    <div>
+                        <p>No tasks, add new one.</p>
+                        <i class="fa-regular fa-face-frown"></i>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
-    {% else %}
-        <div class="title no-task" id="no-task">
-            <div>
-                <p>No tasks, add new one.</p>
-                <i class="fa-regular fa-face-frown"></i>
-            </div>
-        </div>
-    {% endif %}
-</div>
 
 <script>
     function send_search_form(){

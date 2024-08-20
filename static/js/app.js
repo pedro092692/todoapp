@@ -31,8 +31,6 @@ function show_add_form(form_id, trigger){
         form.addEventListener('submit', (event)=>{
             form.children[1].value = form.children[0].value;
             form.children[0].value = '';
-
-            console.log('value of task', form.children[1].value)
         })
 
 
@@ -67,7 +65,8 @@ function close_panel(){
 
 function completed_task(checkbox){
     let id = checkbox.getAttribute('id');
-    let form = document.getElementById('form-' + id);
+    let form = document.getElementById('check-' + id);
+    form.requestSubmit();
 }
 
 show_add_form('add-form', 'add-button');

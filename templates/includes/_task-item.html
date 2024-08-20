@@ -1,8 +1,8 @@
-<div class="task-item-container">
+<div class="task-item-container" id="task-item-container-{{ content.id }}">
     <!--                            checkbox-->
     <div class="check">
-        <form action="">
-            <input type="hidden" name="{{ content.id }}">
+        <form action="" method="POST" id="check-{{content.id}}">
+            <input type="hidden" name="task-check" value="{{ content.id }}">
             <input type="checkbox" name="check-task" id="{{ content.id }}" onclick="completed_task(this);">
         </form>
     </div>
@@ -15,4 +15,5 @@
         </form>
     </div>
 </div>
+
 

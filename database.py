@@ -61,6 +61,19 @@ class Task(db.Model):
         ).order_by(Task.id.desc())).scalars().all()
         return task
 
+    @staticmethod
+    def edit_task(task):
+        task.completed = True
+        db.session.commit()
+
+    @staticmethod
+    def count_completed(user_id):
+        completed = db.session.query(func.count(Task.id)).filter(
+            Task.user_id == user_id, Task.completed
+        ).scalar()
+
+        return completed
+
 
 class SubTask(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

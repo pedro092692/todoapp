@@ -31,10 +31,12 @@ db.create_tables()
 @app.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    # completed task
+    completed = get_user_completed_task()
+
     # add task
     if request.method == 'POST' and 'add-form' in request.form:
         task_title = request.form.get('task')
-        print(task_title)
         new_task = Task.create_task(
             user_id=current_user.id,
             title=task_title
@@ -44,7 +46,8 @@ def home():
             return render_frame(template='_task-item.html', target='task-list', method='prepend', content=new_task)
 
         else:
-            return render_frame(template='_first_task.html', target='task-container', method='replace', content=None)
+            completed = get_user_completed_task()
+            return render_frame(template='_first_task.html', target='task-container', method='replace', content=completed)
     # search task
     if request.method == 'POST' and 'search-form' in request.form:
         query = request.form.get('search')
@@ -74,7 +77,21 @@ def home():
         )
         return render_frame(template='_step_item.html', target='task-steps', method='prepend', content=new_step)
 
-    return render_template('index.html')
+    # complete task
+
+    if request.method == 'POST' and 'task-check' in request.form:
+        task_id = request.form.get('task-check')
+        task = Task.get_task(task_id=task_id)
+        Task.edit_task(task=task)
+        completed = get_user_completed_task()
+        if turbo.can_stream():
+            return turbo.stream([
+                turbo.remove(target=f'task-item-container-{task_id}'),
+                turbo.replace(render_template('includes/_completed_number.html', completed_task=completed),
+                              target='completed-number')
+            ])
+
+    return render_template('index.html', completed_task=completed)
 
 
 
@@ -103,6 +120,13 @@ def render_frame(template, target, method, content, ):
             _method(render_template(f'includes/{template}', content=content), target=target)
         )
 
+
+def get_user_completed_task():
+    """
+    This function return the number (int) of current user completed task.
+    :return:
+    """
+    return Task.count_completed(user_id=current_user.id)
 
 if __name__ == "__main__":
     app.run(debug=True)
