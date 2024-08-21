@@ -52,7 +52,9 @@
 
                     <div class="completed-list" id="completed-list">
                         {% for content in current_user.tasks %}
-                            {% include 'includes/_completed_task.html' %}
+                            {% if content.completed %}
+                                {% include 'includes/_completed_task.html' %}
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>

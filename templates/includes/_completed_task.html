@@ -1,12 +1,16 @@
 <div class="task">
-    <div class="task-info">
+    <div class="check">
+        <input type="checkbox" name="checked" id="2" checked>
+    </div>
+    <div class="task-info" onclick="show_detail(this)">
         <p class="name completed-task">{{ content.title }}</p>
+        <form action="" method="POST" style="display: none" id="form-{{content.id}}">
+            <input type="hidden" name="task-id" value="{{ content.id }}">
+        </form>
         <div class="due-date">
             <i class="fa-regular fa-calendar"></i>
             <p>{{ content.date|humanize_naturaldate() }}</p>
         </div>
     </div>
-    <div class="check">
-        <input type="checkbox" name="checked" id="2" checked>
-    </div>
+
 </div>

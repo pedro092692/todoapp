@@ -3,15 +3,41 @@
     </div>
 
     <div class="task-detail">
-        <div class="task">
-            <p>{{ content.title }}</p>
-            <input type="checkbox" name="checked" id="3">
+        <div class="task-detail-item">
+            <!--                            checkbox-->
+            <div class="check">
+                <form action="" method="POST" id="check-{{content.id}}">
+                    <input type="hidden" name="task-check" value="{{ content.id }}">
+                    <input type="checkbox" name="check-task"
+                           {{ "checked" if content.completed }}
+                           id="{{ content.id }}" onclick="completed_task(this);">
+                </form>
+            </div>
+            <!--                            task info-->
+            <div class="list-item" id="list-item-{{content.id}}" onclick="show_detail(this)">
+                <p class="{{'completed-task' if content.completed}}">{{ content.title }}</p>
+                <form action="" method="POST" style="display: none" id="">
+                    <input type="hidden" name="task-id" value="{{ content.id }}">
+                </form>
+            </div>
         </div>
+<!--        Task steps-->
         <div class="task-steps {{ 'd-none' if not content.sub_tasks  }}" id="task-steps">
             {% for subtask in content.sub_tasks %}
-                <div class="step">
-                    <p>{{ subtask.title }}</p>
-                    <input type="checkbox" name="checked" id="{{ subtask.id }}">
+                <div class="subtask-item">
+<!--                    checkbox-->
+                    <div class="check">
+                        <form action="" method="POST" >
+                            <input type="checkbox" name="check-task">
+                        </form>
+                    </div>
+<!--                    subtask info-->
+                    <div class="list-item">
+                        <p>{{ subtask.title }}</p>
+                        <form action="" method="POST" style="display: none" >
+                            <input type="hidden" name="task-id" value="{{ content.id }}">
+                        </form>
+                    </div>
                 </div>
     <!--            divider-->
                 <div class="divider">

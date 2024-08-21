@@ -89,7 +89,9 @@ def home():
                 turbo.remove(target=f'task-item-container-{task_id}'),
                 turbo.replace(render_template('includes/_completed_number.html', completed_task=completed),
                               target='completed-number'),
-                turbo.append(render_template('includes/_completed_task.html', content=task), target='completed-list')
+                turbo.append(render_template('includes/_completed_task.html', content=task), target='completed-list'),
+                # if the more info panel if open
+                turbo.update(render_template('includes/_more_info.html', content=task), target='more-info')
             ])
 
     return render_template('index.html', completed_task=completed)
