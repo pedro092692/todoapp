@@ -62,8 +62,13 @@ class Task(db.Model):
         return task
 
     @staticmethod
-    def edit_task(task):
+    def completed_task(task):
         task.completed = True
+        db.session.commit()
+
+    @staticmethod
+    def uncompleted_task(task):
+        task.completed = False
         db.session.commit()
 
     @staticmethod

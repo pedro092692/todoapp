@@ -82,17 +82,31 @@ def home():
     if request.method == 'POST' and 'task-check' in request.form:
         task_id = request.form.get('task-check')
         task = Task.get_task(task_id=task_id)
-        Task.edit_task(task=task)
-        completed = get_user_completed_task()
-        if turbo.can_stream():
-            return turbo.stream([
-                turbo.remove(target=f'task-item-container-{task_id}'),
-                turbo.replace(render_template('includes/_completed_number.html', completed_task=completed),
-                              target='completed-number'),
-                turbo.append(render_template('includes/_completed_task.html', content=task), target='completed-list'),
-                # if the more info panel if open
-                turbo.update(render_template('includes/_more_info.html', content=task), target='more-info')
-            ])
+        if task.completed:
+            Task.uncompleted_task(task)
+            completed = get_user_completed_task()
+            if turbo.can_stream():
+                return turbo.stream([
+                    turbo.remove(target=f'completed-task-{task_id}'),
+                    turbo.replace(render_template('includes/_completed_number.html', completed_task=completed),
+                                  target='completed-number'),
+                    turbo.prepend(render_template('includes/_task-item.html', content=task), target='task-list'),
+                    # if the more info panel if open
+                    turbo.update(render_template('includes/_more_info.html', content=task), target='more-info')
+                ])
+
+        else:
+            Task.completed_task(task=task)
+            completed = get_user_completed_task()
+            if turbo.can_stream():
+                return turbo.stream([
+                    turbo.remove(target=f'task-item-container-{task_id}'),
+                    turbo.replace(render_template('includes/_completed_number.html', completed_task=completed),
+                                  target='completed-number'),
+                    turbo.prepend(render_template('includes/_completed_task.html', content=task), target='completed-list'),
+                    # if the more info panel if open
+                    turbo.update(render_template('includes/_more_info.html', content=task), target='more-info')
+                ])
 
     return render_template('index.html', completed_task=completed)
 
@@ -122,7 +136,6 @@ def render_frame(template, target, method, content, ):
         return turbo.stream(
             _method(render_template(f'includes/{template}', content=content), target=target)
         )
-
 
 def get_user_completed_task():
     """
