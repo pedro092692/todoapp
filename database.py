@@ -79,6 +79,12 @@ class Task(db.Model):
 
         return completed
 
+    @staticmethod
+    def edit_task_title(task, title):
+        task.title = title
+        db.session.commit()
+        return task
+
 
 class SubTask(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

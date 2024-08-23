@@ -41,7 +41,6 @@ def home():
             user_id=current_user.id,
             title=task_title
         )
-
         if len(current_user.tasks) > 1:
             return render_frame(template='_task-item.html', target='task-list', method='prepend', content=new_task)
 
@@ -66,7 +65,6 @@ def home():
         task_id = request.form.get('task-id')
         task = Task.get_task(task_id)
         return render_frame(template='_more_info.html', target='more-info', method='update', content=task)
-
     # add task step
     if request.method == 'POST' and 'add-step-form' in request.form:
         task_id = request.form.get('task_id')
@@ -76,9 +74,7 @@ def home():
             title=title
         )
         return render_frame(template='_step_item.html', target='task-steps', method='prepend', content=new_step)
-
     # complete task
-
     if request.method == 'POST' and 'task-check' in request.form:
         task_id = request.form.get('task-check')
         task = Task.get_task(task_id=task_id)
@@ -107,6 +103,26 @@ def home():
                     # if the more info panel if open
                     turbo.update(render_template('includes/_more_info.html', content=task), target='more-info')
                 ])
+    # edit task title
+    if request.method == 'POST' and 'task-title-edit' in request.form:
+        task_title = request.form.get('task-title-edit')
+        task_id = request.form.get('task-id-edit')
+        task = Task.get_task(task_id=task_id)
+        edited_task = Task.edit_task_title(task=task, title=task_title)
+        if turbo.can_stream():
+            if not task.completed:
+                return turbo.stream([
+                    turbo.update(render_template('includes/_more_info.html', content=edited_task), target='more-info'),
+                    turbo.replace(render_template('includes/_task-item.html', content=task),
+                                  target=f'task-item-container-{task_id}')
+                ])
+            else:
+                return turbo.stream([
+                    turbo.update(render_template('includes/_more_info.html', content=edited_task), target='more-info'),
+                    turbo.replace(render_template('includes/_completed_task.html', content=task),
+                                  target=f'completed-task-{task_id}')
+                ])
+        return render_frame(template='_more_info.html', target='more-info', method='update', content=edited_task)
 
     return render_template('index.html', completed_task=completed)
 

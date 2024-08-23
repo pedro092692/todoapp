@@ -34,4 +34,28 @@ function show_step_form(){
 
 }
 
+function edit_task(){
+    let task_title = document.querySelector('.more-info .task-detail .task-detail-item .list-item p');
+    let form = document.getElementById('edit-form');
+    let form_input = form[0];
+    let changed_title = false;
+    task_title.addEventListener('click', ()=>{
+        task_title.setAttribute('contenteditable', 'True');
+    })
+    task_title.addEventListener('keyup', ()=>{
+        form_input.value = task_title.innerText;
+        changed_title = true;
+    })
+
+    document.addEventListener('click', (event)=>{
+        if(!event.target.contains(task_title)){
+            if(form.isConnected && changed_title){
+                form.requestSubmit();
+            }
+        }
+    })
+
+}
+
+edit_task();
 show_step_form();
