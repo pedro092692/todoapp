@@ -1,6 +1,17 @@
-<div class="step">
-    <p>{{ content.title }}</p>
-    <input type="checkbox" name="checked" id="{{ content.id }}">
+<div class="subtask-item">
+<!--checkbox-->
+    <div class="check">
+        <form action="" method="POST" >
+            <input type="checkbox" name="check-task">
+        </form>
+    </div>
+<!--subtask info-->
+    <div class="list-item">
+        <p>{{ content.title }}</p>
+        <form action="" method="POST" style="display: none" >
+            <input type="hidden" name="task-id" value="{{ content.id }}">
+        </form>
+    </div>
 </div>
 <!--            divider-->
 <div class="divider">
