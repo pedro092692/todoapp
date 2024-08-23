@@ -57,5 +57,11 @@ function edit_task(){
 
 }
 
+function completed_subtask(checkbox){
+    let form = checkbox.parentNode;
+    form.requestSubmit();
+}
+
+
 edit_task();
 show_step_form();

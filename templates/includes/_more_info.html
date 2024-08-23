@@ -25,16 +25,20 @@
 <!--        Task steps-->
         <div class="task-steps {{ 'd-none' if not content.sub_tasks  }}" id="task-steps">
             {% for subtask in content.sub_tasks %}
-                <div class="subtask-item">
+                <div class="subtask-item" id="subtask-id-container-{{subtask.id}}">
 <!--                    checkbox-->
                     <div class="check">
-                        <form action="" method="POST" >
-                            <input type="checkbox" name="check-task">
+                        <form method="POST" >
+                            <input type="checkbox"
+                            name="check-subtask" onclick="completed_subtask(this);"
+                                   {{ 'checked' if subtask.completed }}>
+                            <input type="hidden" name="subtask-id" value="{{ subtask.id }}">
                         </form>
                     </div>
 <!--                    subtask info-->
                     <div class="list-item">
-                        <p>{{ subtask.title }}</p>
+                        <p class="{{ 'completed-task' if subtask.completed }}"
+                           id="subtask-id-{{subtask.id}}">{{ subtask.title }}</p>
                         <form action="" method="POST" style="display: none" >
                             <input type="hidden" name="task-id" value="{{ content.id }}">
                         </form>

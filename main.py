@@ -78,6 +78,7 @@ def home():
     if request.method == 'POST' and 'task-check' in request.form:
         task_id = request.form.get('task-check')
         task = Task.get_task(task_id=task_id)
+        print(task)
         if task.completed:
             Task.uncompleted_task(task)
             completed = get_user_completed_task()
@@ -90,7 +91,6 @@ def home():
                     # if the more info panel if open
                     turbo.update(render_template('includes/_more_info.html', content=task), target='more-info')
                 ])
-
         else:
             Task.completed_task(task=task)
             completed = get_user_completed_task()
@@ -123,6 +123,17 @@ def home():
                                   target=f'completed-task-{task_id}')
                 ])
         return render_frame(template='_more_info.html', target='more-info', method='update', content=edited_task)
+    # completed subtask
+    if request.method == 'POST' and 'subtask-id' in request.form:
+        subtask_id = request.form.get('subtask-id')
+        subtask = SubTask.get_subtask(subtask_id=subtask_id)
+        if subtask.completed:
+            Task.uncompleted_task(subtask)
+        else:
+            Task.completed_task(subtask)
+        return render_frame(template='_step_item_updated.html', target=f'subtask-id-container-{subtask_id}',
+                            method='replace',
+                            content=subtask)
 
     return render_template('index.html', completed_task=completed)
 

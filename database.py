@@ -102,6 +102,10 @@ class SubTask(db.Model):
         db.session.commit()
         return new_step
 
+    @staticmethod
+    def get_subtask(subtask_id):
+        return db.get_or_404(SubTask, subtask_id)
+
 
 class DataBase:
 
