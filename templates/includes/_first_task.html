@@ -43,23 +43,16 @@
                 </div>
                 <div class="completed-container" id="completed-task">
                     <div class="completed" id="completed">
-                        <p id="completed-number">Completed {{content}}</p>
+                        <p id="completed-number">Completed {{completed_task}}</p>
                         <i class="fa-solid fa-chevron-right"></i>
                     </div>
 
-                    <div class="completed-list">
-                        <div class="task">
-                            <div class="task-info">
-                                <p class="name">Task name</p>
-                                <div class="due-date">
-                                    <i class="fa-regular fa-calendar"></i>
-                                    <p>Mon, Agu 6 2024</p>
-                                </div>
-                            </div>
-                            <div class="check">
-                                <input type="checkbox" name="checke" id="2" checked>
-                            </div>
-                        </div>
+                    <div class="completed-list" id="completed-list">
+                        {% for content in current_user.tasks %}
+                            {% if content.completed %}
+                                {% include 'includes/_completed_task.html' %}
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             {% else %}
