@@ -37,16 +37,18 @@ def home():
     # add task
     if request.method == 'POST' and 'add-form' in request.form:
         task_title = request.form.get('task')
-        new_task = Task.create_task(
-            user_id=current_user.id,
-            title=task_title
-        )
-        if len(current_user.tasks) > 1:
-            return render_frame(template='_task-item.html', target='task-list', method='prepend', content=new_task)
+        if task_title:
+            new_task = Task.create_task(
+                user_id=current_user.id,
+                title=task_title
+            )
+            if len(current_user.tasks) > 1:
+                return render_frame(template='_task-item.html', target='task-list', method='prepend', content=new_task)
 
-        else:
-            completed = get_user_completed_task()
-            return render_frame(template='_first_task.html', target='task-container', method='replace', content=completed)
+            else:
+                completed = get_user_completed_task()
+                return render_frame(template='_first_task.html', target='task-container', method='replace',
+                                    content=completed)
     # search task
     if request.method == 'POST' and 'search-form' in request.form:
         query = request.form.get('search')
