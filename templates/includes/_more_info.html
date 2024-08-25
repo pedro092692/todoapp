@@ -15,7 +15,7 @@
             </div>
             <!--                            task info-->
             <div class="list-item" id="list-item-{{content.id}}">
-                <p class="{{'completed-task' if content.completed}}">{{ content.title }}</p>
+                <p class="{{'completed-task' if content.completed}}"">{{ content.title }}</p>
                 <form action="" method="POST" style="display:" id="edit-form">
                     <input type="hidden" name="task-title-edit">
                     <input type="hidden" name="task-id-edit" value="{{ content.id }}">
@@ -39,8 +39,9 @@
                     <div class="list-item">
                         <p class="{{ 'completed-task' if subtask.completed }}"
                            id="subtask-id-{{subtask.id}}">{{ subtask.title }}</p>
-                        <form action="" method="POST" style="display: none" >
-                            <input type="hidden" name="task-id" value="{{ content.id }}">
+                        <form action="" method="POST" style="display: none" id="edit-title-subtask">
+                            <input type="hidden" name="task-id-edit" value="{{ subtask.id }}">
+                            <input type="hidden" name="subtask-edited-name">
                         </form>
                     </div>
                 </div>

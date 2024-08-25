@@ -64,7 +64,6 @@ function close_panel(){
 }
 
 function completed_task(checkbox){
-    console.log('hi pedro');
     let id = checkbox.getAttribute('id');
     let form = document.getElementById('check-' + id);
     form.requestSubmit();

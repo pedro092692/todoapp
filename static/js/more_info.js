@@ -20,12 +20,7 @@ function show_step_form(){
             container.classList.remove('d-none');
             step_form.children[1].value = step_form.children[0].value;
             step_form.children[0].value = '';
-
-
-    console.log(container);
         })
-
-
 
         function hide_form(){
             add_step.style.display = 'block';
@@ -62,6 +57,44 @@ function completed_subtask(checkbox){
     form.requestSubmit();
 }
 
+function edit_subtask(){
+    let subtask_container = document.querySelectorAll('.more-info .task-detail .task-steps .subtask-item .list-item p');
+    let changed_title = false;
+    let subtask = false;
+    let form = false;
+
+    for(let subtask_item of subtask_container){
+        subtask_item.addEventListener('click', ()=>{
+            subtask = subtask_item;
+            subtask_item.setAttribute('contenteditable', 'true');
+            change_subtask_title(subtask_item);
+        });
+    }
+
+    function change_subtask_title(subtask){
+        form = subtask.nextElementSibling;
+        let form_input = form[1];
+        subtask.addEventListener('keyup', ()=>{
+            form_input.value = subtask.innerText;
+            changed_title = true;
+        })
+    }
+
+    document.addEventListener('click', ()=>{
+        if(changed_title){
+            if(form.isConnected && !event.target.contains(subtask)){
+                form.requestSubmit();
+            }
+            subtask = false;
+            form = false;
+            changed_title = false;
+            }
+    })
+
+
+}
+
 
 edit_task();
 show_step_form();
+edit_subtask();

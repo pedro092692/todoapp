@@ -69,16 +69,17 @@ def home():
     if request.method == 'POST' and 'add-step-form' in request.form:
         task_id = request.form.get('task_id')
         title = request.form.get('step')
-        new_step = SubTask.add_step(
-            task_id=task_id,
-            title=title
-        )
-        return render_frame(template='_step_item.html', target='task-steps', method='prepend', content=new_step)
+        if title:
+            new_step = SubTask.add_step(
+                task_id=task_id,
+                title=title
+            )
+            task_parent = Task.get_task(task_id=task_id)
+            return render_frame(template='_more_info.html', target='more-info', method='update', content=task_parent)
     # complete task
     if request.method == 'POST' and 'task-check' in request.form:
         task_id = request.form.get('task-check')
         task = Task.get_task(task_id=task_id)
-        print(task)
         if task.completed:
             Task.uncompleted_task(task)
             completed = get_user_completed_task()
@@ -107,33 +108,43 @@ def home():
     if request.method == 'POST' and 'task-title-edit' in request.form:
         task_title = request.form.get('task-title-edit')
         task_id = request.form.get('task-id-edit')
-        task = Task.get_task(task_id=task_id)
-        edited_task = Task.edit_task_title(task=task, title=task_title)
-        if turbo.can_stream():
-            if not task.completed:
-                return turbo.stream([
-                    turbo.update(render_template('includes/_more_info.html', content=edited_task), target='more-info'),
-                    turbo.replace(render_template('includes/_task-item.html', content=task),
-                                  target=f'task-item-container-{task_id}')
-                ])
-            else:
-                return turbo.stream([
-                    turbo.update(render_template('includes/_more_info.html', content=edited_task), target='more-info'),
-                    turbo.replace(render_template('includes/_completed_task.html', content=task),
-                                  target=f'completed-task-{task_id}')
-                ])
+        edited_task = Task.get_task(task_id=task_id)
+        if task_title:
+            task = Task.get_task(task_id=task_id)
+            edited_task = Task.edit_task_title(task=task, title=task_title)
+            if turbo.can_stream():
+                    if not task.completed:
+                        return turbo.stream([
+                            turbo.update(render_template('includes/_more_info.html', content=edited_task), target='more-info'),
+                            turbo.replace(render_template('includes/_task-item.html', content=task),
+                                          target=f'task-item-container-{task_id}')
+                        ])
+                    else:
+                        return turbo.stream([
+                            turbo.update(render_template('includes/_more_info.html', content=edited_task), target='more-info'),
+                            turbo.replace(render_template('includes/_completed_task.html', content=task),
+                                          target=f'completed-task-{task_id}')
+                        ])
         return render_frame(template='_more_info.html', target='more-info', method='update', content=edited_task)
     # completed subtask
     if request.method == 'POST' and 'subtask-id' in request.form:
         subtask_id = request.form.get('subtask-id')
         subtask = SubTask.get_subtask(subtask_id=subtask_id)
+        parent_task = Task.get_task(task_id=subtask.task_id)
         if subtask.completed:
             Task.uncompleted_task(subtask)
         else:
             Task.completed_task(subtask)
-        return render_frame(template='_step_item_updated.html', target=f'subtask-id-container-{subtask_id}',
-                            method='replace',
-                            content=subtask)
+        return render_frame(template='_more_info.html', target='more-info', method='update', content=parent_task)
+    # edit subtask title
+    if request.method == 'POST' and 'task-id-edit' in request.form:
+        subtask_id = request.form.get('task-id-edit')
+        title = request.form.get('subtask-edited-name')
+        subtask = SubTask.get_subtask(subtask_id=subtask_id)
+        task = Task.get_task(task_id=subtask.task_id)
+        if title:
+            Task.edit_task_title(subtask, title=title)
+        return render_frame(template='_more_info.html', target='more-info', method='update', content=task)
 
     return render_template('index.html', completed_task=completed)
 
