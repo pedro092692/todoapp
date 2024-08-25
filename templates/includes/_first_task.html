@@ -65,17 +65,4 @@
             {% endif %}
         </div>
 
-<script>
-    function send_search_form(){
-    try{
-        form = document.getElementById('search-form');
-        input = document.getElementById('search-input');
-        input.addEventListener('keyup', function(){
-            form.requestSubmit();
-        })
-    }catch{
-        //pass
-    }
-}
-send_search_form();
-</script>
+<script src="{{ url_for('static', filename='js/app.js') }}" defer></script>

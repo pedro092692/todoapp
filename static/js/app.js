@@ -69,6 +69,27 @@ function completed_task(checkbox){
     form.requestSubmit();
 }
 
+function show_completed_task(){
+    const completed_container = document.getElementById('completed');
+    const arrow = completed_container.children[1];
+    const completed_list = document.getElementById('completed-list');
+    let state = false;
+    completed_container.addEventListener('click', ()=>{
+        if(!state){
+            show(degrees='90', display='flex');
+            state = true;
+        }else{
+            show(degrees='0', display='none');
+            state = false;
+        }
+    })
+
+    function show(degrees, display){
+        arrow.style.transform = 'rotate('+degrees+'deg)';
+        completed_list.style.display = display;
+    }
+}
+
 show_add_form('add-form', 'add-button');
 send_search_form();
-
+show_completed_task();
