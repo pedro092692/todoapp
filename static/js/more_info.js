@@ -94,7 +94,29 @@ function edit_subtask(){
 
 }
 
+function delete_task(){
+    const trash_button = document.getElementById('delete-task');
+    const delete_div = document.getElementById('delete-container');
+    const cancel_button = document.getElementById('cancel-button');
+    let task_title = document.getElementById('task-title').innerText;
+    const task_name = document.getElementById('delete-task-title');
+    if(task_title.length > 57){
+        task_name.innerText = task_title.substring(0, 57) + '...';
+    }else{
+        task_name.innerText = task_title
+    }
+
+    trash_button.addEventListener('click', ()=>{
+        delete_div.style.display = 'flex';
+
+    })
+    cancel_button.addEventListener('click', ()=>{
+        delete_div.style.display = 'none';
+    })
+
+}
 
 edit_task();
 show_step_form();
 edit_subtask();
+delete_task();

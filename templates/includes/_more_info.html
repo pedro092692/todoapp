@@ -15,7 +15,7 @@
             </div>
             <!--                            task info-->
             <div class="list-item" id="list-item-{{content.id}}">
-                <p class="{{'completed-task' if content.completed}}"">{{ content.title }}</p>
+                <p class="{{'completed-task' if content.completed}}" id="task-title">{{ content.title }}</p>
                 <form action="" method="POST" style="display:" id="edit-form">
                     <input type="hidden" name="task-title-edit">
                     <input type="hidden" name="task-id-edit" value="{{ content.id }}">
@@ -64,7 +64,10 @@
     <div class="task-date">
         <div>
             <p>{{ content.date|humanize_naturaldate() }}</p>
-            <i class="fa-solid fa-trash-can"></i>
+            <i class="fa-solid fa-trash-can" id="delete-task"></i>
+            <form action="" id="delete-task-form">
+                <input type="hidden" name="task-id" value="{{ content.id }}">
+            </form>
         </div>
     </div>
 

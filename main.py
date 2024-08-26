@@ -151,8 +151,6 @@ def home():
     return render_template('index.html', completed_task=completed)
 
 
-
-
 @app.route('/login')
 def login():
     return render_template('security/login_user.html')
@@ -176,6 +174,7 @@ def render_frame(template, target, method, content, ):
         return turbo.stream(
             _method(render_template(f'includes/{template}', content=content), target=target)
         )
+
 
 def get_user_completed_task():
     """

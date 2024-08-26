@@ -33,6 +33,20 @@
         {% endblock content %}
     </section>
 
+    <!--delete container-->
+<div class="delete-container" id="delete-container">
+    <div class="delete-box">
+        <h2>Delete Task</h2>
+        <p id="delete-task-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <form action="" method="POST" id="delete-task-form">
+            <input type="hidden" name="delete-task-id">
+            <button class="delete-button">Delete</button>
+            <button class="cancel-button" id="cancel-button">Cancel</button>
+        </form>
+    </div>
+</div>
+
+
 <!--    js-->
     {%  block js %}
     {% endblock js %}
