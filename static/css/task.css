@@ -104,6 +104,10 @@ input:focus{
     align-items: center;
 }
 
+.list-item p{
+    width: 100%;
+}
+
 .main .more-info .task-detail .task-steps .subtask-item{
     display: flex;
     gap: 8px;
