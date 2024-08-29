@@ -158,9 +158,9 @@ def home():
         task_id = request.form.get('task-id-delete')
         task = Task.get_task(task_id=task_id)
         Task.delete_task(task)
-        completed = get_user_completed_task()
         if task.completed:
             if turbo.can_stream():
+                completed = get_user_completed_task()
                 if completed > 0:
                     return turbo.stream([
                             turbo.remove(target=f'completed-task-{task_id}'),
