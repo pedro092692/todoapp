@@ -430,7 +430,7 @@ input:focus{
     gap: 10px;
 }
 
-.delete-box form button{
+.delete-box form button, input[type=submit]{
     width: 120px;
     height: 35px;
     padding: 8px 10px;

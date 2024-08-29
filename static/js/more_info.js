@@ -95,11 +95,17 @@ function edit_subtask(){
 }
 
 function delete_task(){
+
     const trash_button = document.getElementById('delete-task');
     const delete_div = document.getElementById('delete-container');
     const cancel_button = document.getElementById('cancel-button');
+    const delete_button = document.getElementById('delete-button');
     let task_title = document.getElementById('task-title').innerText;
     const task_name = document.getElementById('delete-task-title');
+    const form = document.getElementById('delete-form');
+    let task_id = document.getElementById('delete-task-form')[0].value;
+    let more_info_container = document.getElementById('more-info');
+
     if(task_title.length > 57){
         task_name.innerText = task_title.substring(0, 57) + '...';
     }else{
@@ -110,9 +116,20 @@ function delete_task(){
         delete_div.style.display = 'flex';
 
     })
-    cancel_button.addEventListener('click', ()=>{
+
+    cancel_button.addEventListener('click', (event)=>{
+        console.log('cancel');
+        event.preventDefault();
         delete_div.style.display = 'none';
     })
+
+    delete_button.addEventListener('click', ()=>{
+        form[0].value = task_id;
+        delete_div.style.display = 'none';
+        more_info_container.style.display = 'none';
+    })
+
+
 
 }
 

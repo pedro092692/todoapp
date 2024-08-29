@@ -37,7 +37,7 @@ class Task(db.Model):
     title: Mapped[str] = mapped_column(String, nullable=False)
     completed: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     date: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.now())
-    sub_tasks: Mapped[List["SubTask"]] = relationship(order_by="SubTask.id.desc()")
+    sub_tasks: Mapped[List["SubTask"]] = relationship(order_by="SubTask.id.desc()", cascade="all,delete")
 
     @staticmethod
     def create_task(user_id, title):
@@ -85,6 +85,10 @@ class Task(db.Model):
         db.session.commit()
         return task
 
+    @staticmethod
+    def delete_task(task):
+        db.session.delete(task)
+        db.session.commit()
 
 class SubTask(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

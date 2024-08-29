@@ -153,6 +153,33 @@ def home():
         if title:
             Task.edit_task_title(subtask, title=title)
         return render_frame(template='_more_info.html', target='more-info', method='update', content=task)
+    # delete task
+    if request.method == 'POST' and 'task-id-delete' in request.form:
+        task_id = request.form.get('task-id-delete')
+        task = Task.get_task(task_id=task_id)
+        Task.delete_task(task)
+        completed = get_user_completed_task()
+        if task.completed:
+            if turbo.can_stream():
+                if completed > 0:
+                    return turbo.stream([
+                            turbo.remove(target=f'completed-task-{task_id}'),
+                            turbo.replace(render_template('includes/_completed_number.html', completed_task=completed),
+                                      target='completed-number')
+                        ]
+                    )
+                else:
+                    return render_frame(template='_first_task.html', target='task-container', method='replace',
+                                        content=completed)
+        else:
+            if turbo.can_stream():
+                if completed > 0:
+                    return turbo.stream(
+                        turbo.remove(target=f'task-item-container-{task_id}')
+                    )
+                else:
+                    return render_frame(template='_first_task.html', target='task-container', method='replace',
+                                        content=completed)
 
     return render_template('index.html', completed_task=completed)
 
