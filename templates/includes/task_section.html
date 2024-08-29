@@ -35,11 +35,7 @@
 
     <!--                            task info-->
                                 <div class="list-item" id="list-item-{{task.id}}" onclick="show_detail(this)">
-                                    {% if task.title|length > 80 %}
-                                        <p>{{ task.title[0: 80] }}...</p>
-                                    {% else %}
-                                        <p>{{ task.title }}</p>
-                                    {% endif %}
+                                    <p>{{ task.title }}</p>
                                     <form action="" method="POST" style="display: none" id="form-{{task.id}}">
                                         <input type="hidden" name="task-id" value="{{ task.id }}">
                                     </form>
