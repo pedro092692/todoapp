@@ -216,16 +216,19 @@ input:focus{
 
 .main .task-container .add-task-container{
     padding: 12px;
+    height: 50px;
     border-radius: 8px;
     font-size: 24px;
     font-weight: 500;
     text-transform: capitalize;
     background: #323232;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .main .task-container .add-task-container p{
     color: #2B98DD;
+    cursor: pointer;
 }
 
 
@@ -340,10 +343,13 @@ input:focus{
 }
 
 #add-form, #add-step-form{
+    flex-grow: 1;
     display: none;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #add-form input[type=text]{
@@ -359,7 +365,6 @@ input:focus{
 }
 
 #add-form input[type=submit]{
-    height: 24px;
     border: none;
     color: #2B98DD;
     font-size: 16px;
