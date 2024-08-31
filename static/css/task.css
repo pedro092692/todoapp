@@ -66,6 +66,8 @@ input:focus{
 .main .task-container .list{
     display: flex;
     flex-direction: column;
+    max-height: 400px;
+    overflow-y: auto;
     gap: 8px;
 }
 
@@ -81,8 +83,8 @@ input:focus{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
     border-radius: 8px 0px 0px 8px;
+    height: 48px;
 }
 
 .main .more-info .task-detail .task-detail-item{
@@ -155,6 +157,8 @@ input:focus{
     flex-direction: column;
     gap: 24px;
     flex-grow:1;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .main .task-container .completed-container .completed{
