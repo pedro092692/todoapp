@@ -94,6 +94,38 @@ function show_completed_task(){
     }
 }
 
+function show_mobile_menu(){
+    let opened = false;
+    let div = document.createElement('div');
+    const menu = document.getElementById('menu');
+    const nav = document.querySelector('nav');
+    const more_info = document.getElementById('more-info');
+    const main = document.getElementById('main');
+    menu.addEventListener('click', ()=>{
+        div.classList.add('bg');
+        main.prepend(div);
+        if(more_info.style.display == 'flex'){
+            more_info.style.display = 'none';
+        }
+
+        nav.style.display = 'flex';
+        opened = true;
+    })
+
+   addEventListener('click', ()=>{
+        if(!event.composedPath().includes(nav) && !event.composedPath().includes(menu) && opened){
+            nav.style.display = 'none';
+            div.remove();
+        }
+   })
+
+
+
+
+}
+
+
+show_mobile_menu();
 show_add_form('add-form', 'add-button');
 send_search_form();
 show_completed_task();
