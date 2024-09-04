@@ -22,6 +22,7 @@ turbo = Turbo(app)
 # flask security
 app.config['SECURITY_REGISTERABLE'] = True
 app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
+app.config['SECURITY_POST_LOGOUT_VIEW'] = '/login'
 
 # database
 db = DataBase(app)
@@ -178,7 +179,7 @@ def home():
     return render_template('index.html', completed_task=completed)
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     return render_template('security/login_user.html')
 

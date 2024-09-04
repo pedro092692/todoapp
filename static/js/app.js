@@ -111,14 +111,12 @@ function show_mobile_menu(){
         opened = true;
     })
 
-   if(window.innerWidth < 950){
         addEventListener('click', ()=>{
         if(!event.composedPath().includes(nav) && !event.composedPath().includes(menu) && opened){
             nav.style.removeProperty('display');
             div.remove();
         }
     })
-   }
 }
 
 

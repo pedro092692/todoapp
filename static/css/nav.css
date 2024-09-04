@@ -67,3 +67,6 @@ nav .container a{
     color: inherit;
 }
 
+#delete-container{
+    display: none;
+}
