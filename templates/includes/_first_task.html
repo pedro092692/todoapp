@@ -11,9 +11,13 @@
             {% endif %}
             <div class="title">
                 <div>
-                    <i class="fa-regular fa-circle-check"></i>
-                    <p>Task</p>
-
+                    <div class="menu" id="menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                    <div>
+                        <i class="fa-regular fa-circle-check"></i>
+                        <p>Task</p>
+                    </div>
                 </div>
             </div>
     <!--        check if user has tasks-->
@@ -65,43 +69,3 @@
             {% endif %}
         </div>
 
-<script>
-    function send_search_form(){
-    try{
-        form = document.getElementById('search-form');
-        input = document.getElementById('search-input');
-        input.addEventListener('keyup', function(){
-            form.requestSubmit();
-        })
-    }catch{
-        //pass
-    }
-}
-
-function show_completed_task(){
-    try{
-        const completed_container = document.getElementById('completed');
-        const arrow = completed_container.children[1];
-        const completed_list = document.getElementById('completed-list');
-        let state = false;
-        completed_container.addEventListener('click', ()=>{
-            if(!state){
-                show(degrees='90', display='flex');
-                state = true;
-            }else{
-                show(degrees='0', display='none');
-                state = false;
-            }
-        })
-
-        function show(degrees, display){
-            arrow.style.transform = 'rotate('+degrees+'deg)';
-            completed_list.style.display = display;
-        }
-    }catch{
-//        pass
-    }
-}
-show_completed_task();
-send_search_form();
-</script>

@@ -61,13 +61,7 @@ def home():
                     turbo.remove(target='completed')
                 ])
             else:
-                return turbo.stream([
-                    turbo.update(render_template('includes/_first_task.html'), target='task-container'),
-                    turbo.replace(render_template('includes/_completed_number.html', completed_task=completed),
-                                  target='completed-number'),
-                ])
-
-                # return render_frame(template='_first_task.html', target='task-container', method='replace', content=None)
+                return redirect(url_for('home'))
     # show task detail
     if request.method == 'POST' and 'task-id' in request.form:
         task_id = request.form.get('task-id')

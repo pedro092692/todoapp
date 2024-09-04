@@ -73,7 +73,7 @@ input:focus{
 .main .task-container .list{
     display: flex;
     flex-direction: column;
-    max-height: 400px;
+    max-height: 30vh;
     overflow-y: auto;
     gap: 8px;
 }
@@ -161,7 +161,7 @@ input:focus{
     flex-direction: column;
     gap: 24px;
     flex-grow:1;
-    max-height: 300px;
+    max-height: 35vh;
     overflow-y: auto;
 }
 

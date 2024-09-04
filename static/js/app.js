@@ -107,21 +107,18 @@ function show_mobile_menu(){
         if(more_info.style.display == 'flex'){
             more_info.style.display = 'none';
         }
-
         nav.style.display = 'flex';
         opened = true;
     })
 
-   addEventListener('click', ()=>{
+   if(window.innerWidth < 950){
+        addEventListener('click', ()=>{
         if(!event.composedPath().includes(nav) && !event.composedPath().includes(menu) && opened){
-            nav.style.display = 'none';
+            nav.style.removeProperty('display');
             div.remove();
         }
-   })
-
-
-
-
+    })
+   }
 }
 
 
