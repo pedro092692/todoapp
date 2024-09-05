@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+<!--css-->
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock css %}
+
+<!--title-->
+{% block title %}
+    Profile
+{% endblock title %}
+
+<!--content-->
+{% block content %}
+    {% include 'includes/profile_section.html' %}
+{% endblock content %}
+
+<!--js-->
+{% block js %}
+
+{% endblock js %}

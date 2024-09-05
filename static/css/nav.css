@@ -70,3 +70,14 @@ nav .container a{
 #delete-container{
     display: none;
 }
+
+@media screen and (max-width: 950px){
+    nav{
+        z-index: 20;
+        position: absolute;
+        height: 100%;
+        display: none;
+        min-width: 250px;
+    }
+
+}

@@ -16,7 +16,7 @@
             <!--                            task info-->
             <div class="list-item" id="list-item-{{content.id}}">
                 <p class="{{'completed-task' if content.completed}}" id="task-title">{{ content.title }}</p>
-                <form action="" method="POST" style="display:" id="edit-form">
+                <form action="" method="POST" id="edit-form">
                     <input type="hidden" name="task-title-edit">
                     <input type="hidden" name="task-id-edit" value="{{ content.id }}">
                 </form>
@@ -71,4 +71,4 @@
         </div>
     </div>
 
-<script src="{{ url_for('static', filename='js/more_info.js') }}" defer></script>
+<script id="more-info-js" src="{{ url_for('static', filename='js/more_info.js') }}"></script>

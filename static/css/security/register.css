@@ -14,7 +14,7 @@
 }
 
 .login-container .form-container{
-    width: 664px;
+    min-width: 664px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -46,4 +46,26 @@
     border: none;
     background: #7D7D7D;
     cursor: pointer;
+}
+
+.login-container .register a, p{
+    margin-top: 8px;
+    color: white;
+    font-size: 16px;
+}
+
+/* media queries */
+
+@media screen and (max-width: 950px){
+    .login-container .form-container{
+         max-width: 340px;
+         min-width: auto;
+         padding: 12px;
+    }
+
+    .login-container h2{
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+}
 }

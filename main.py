@@ -1,8 +1,9 @@
 from flask import Flask, url_for, request, render_template, redirect
 from dotenv import load_dotenv
 from turbo_flask import Turbo
-from flask_security import login_required, current_user
-from database import DataBase, Task, SubTask
+from flask_security import login_required, current_user, verify_password, hash_password
+from database import DataBase, Task, SubTask, User
+from werkzeug.security import check_password_hash
 import os
 
 
@@ -47,9 +48,7 @@ def home():
                 return render_frame(template='_task-item.html', target='task-list', method='prepend', content=new_task)
 
             else:
-                completed = get_user_completed_task()
-                return render_frame(template='_first_task.html', target='task-container', method='replace',
-                                    content=completed)
+                return redirect(url_for('home'))
     # search task
     if request.method == 'POST' and 'search-form' in request.form:
         query = request.form.get('search')
@@ -164,8 +163,7 @@ def home():
                         ]
                     )
                 else:
-                    return render_frame(template='_first_task.html', target='task-container', method='replace',
-                                        content=completed)
+                    return redirect(url_for('home'))
         else:
             if turbo.can_stream():
                 if completed > 0:
@@ -173,8 +171,7 @@ def home():
                         turbo.remove(target=f'task-item-container-{task_id}')
                     )
                 else:
-                    return render_frame(template='_first_task.html', target='task-container', method='replace',
-                                        content=completed)
+                    return redirect(url_for('home'))
 
     return render_template('index.html', completed_task=completed)
 
@@ -187,6 +184,15 @@ def login():
 @app.route('/register')
 def register():
     return render_template('security/register_user.html')
+
+
+@app.route('/profile')
+@login_required
+def profile():
+    # user_password = verify_password(password='12345678', password_hash=current_user.password)
+    # new_password = '123456789'
+    # User.update_password(current_user, hash_password(new_password))
+    return render_template('profile.html')
 
 
 def render_frame(template, target, method, content, ):

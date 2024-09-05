@@ -25,6 +25,9 @@ Login
                 {{ render_form_error(login_user_form.password) }}
                 {{ login_user_form.submit(value='Login') }}
             </form>
+            <div class="register">
+                <p>don't have account ? <a href="{{ url_for('security.register') }}">register here</a></p>
+            </div>
         </div>
     </div>
 {% endblock %}

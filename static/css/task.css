@@ -3,15 +3,14 @@
 .main{
     flex-grow: 1;
     display: flex;
-
 }
 
 .main .task-container{
     display: flex;
     flex-direction: column;
     gap: 24px;
-    flex-grow: 1;
     padding: 20px 24px;
+    flex-grow: 1;
 }
 
 .main .task-container .show-task{
@@ -345,21 +344,15 @@ input:focus{
     justify-content: center;
 }
 
-#add-button{
-}
-
 #add-form, #add-step-form{
     flex-grow: 1;
     display: none;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    align-items: center;
-    justify-content: space-between;
 }
 
 #add-form input[type=text]{
-    flex-grow: 1;
     border: none;
     color: #2B98DD;
     font-size: 24px;
@@ -459,14 +452,6 @@ input:focus{
 
 .delete-box form .delete-button{
     background: #981919;
-}
-
-.bg{
-    z-index: 3;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
 }
 
 /* media queries  */

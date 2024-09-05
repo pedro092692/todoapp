@@ -2,7 +2,7 @@
     <!--logo-->
     <img src="{{ url_for('static', filename='assets/img/todo_logo.svg') }}" alt="logo app" width="109">
     <div class="nav-content">
-        <a href="">
+        <a href="{{ url_for('home') }}" target="_self">
             <div>
                 <i class="fa-regular fa-circle-check"></i>
                 <p>Task</p>
@@ -24,18 +24,17 @@
         </a>
     </div>
     <div class="container">
-        <a href="">
-
-            <div>
-                <i class="fa-solid fa-gear"></i>
-                {% if current_user.is_authenticated %}
+        <div>
+            <i class="fa-solid fa-gear"></i>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('profile') }}">
                     <p>Your account</p>
-                {% else %}
-                    <a href="{{ url_for('login') }}">
-                        Login
-                    </a>
-                {% endif %}
-            </div>
-        </a>
+                </a>
+            {% else %}
+                <a href="{{ url_for('login') }}">
+                    Login
+                </a>
+            {% endif %}
+        </div>
     </div>
 </nav>

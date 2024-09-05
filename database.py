@@ -30,6 +30,11 @@ class User(db.Model, fsqla.FsUserMixin):
     fs_uniquifier: Mapped[str] = mapped_column(String, nullable=False, unique=True)
     tasks: Mapped[List["Task"]] = relationship(order_by="Task.id.desc()")
 
+    @staticmethod
+    def update_password(user, password):
+        user.password = password
+        db.session.commit()
+
 
 class Task(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -124,7 +129,6 @@ class DataBase:
         # database init
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
         self.app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('SECRET_KEY')
-
         self.db.init_app(self.app)
 
     def create_tables(self):

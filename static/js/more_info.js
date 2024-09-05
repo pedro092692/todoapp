@@ -31,6 +31,7 @@ function show_step_form(){
 
 function edit_task(){
     let task_title = document.querySelector('.more-info .task-detail .task-detail-item .list-item p');
+
     let form = document.getElementById('edit-form');
     let form_input = form[0];
     let changed_title = false;

@@ -1,4 +1,5 @@
 function send_search_form(){
+
     try{
         form = document.getElementById('search-form');
         input = document.getElementById('search-input');
@@ -55,12 +56,13 @@ function show_detail(task){
 
 function close_panel(){
     const panel_section = document.getElementById('more-info');
+    const more_info = document.getElementById('more-info-js');
     for(let child of panel_section.children){
         child.style.display = 'none';
 
     }
     panel_section.style.display = 'none';
-
+    more_info.remove();
 }
 
 function completed_task(checkbox){
@@ -94,33 +96,10 @@ function show_completed_task(){
     }
 }
 
-function show_mobile_menu(){
-    let opened = false;
-    let div = document.createElement('div');
-    const menu = document.getElementById('menu');
-    const nav = document.querySelector('nav');
-    const more_info = document.getElementById('more-info');
-    const main = document.getElementById('main');
-    menu.addEventListener('click', ()=>{
-        div.classList.add('bg');
-        main.prepend(div);
-        if(more_info.style.display == 'flex'){
-            more_info.style.display = 'none';
-        }
-        nav.style.display = 'flex';
-        opened = true;
-    })
-
-        addEventListener('click', ()=>{
-        if(!event.composedPath().includes(nav) && !event.composedPath().includes(menu) && opened){
-            nav.style.removeProperty('display');
-            div.remove();
-        }
-    })
-}
-
-
-show_mobile_menu();
 show_add_form('add-form', 'add-button');
 send_search_form();
 show_completed_task();
+
+
+
+
