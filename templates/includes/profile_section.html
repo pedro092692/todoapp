@@ -1,3 +1,5 @@
+{% from 'includes/_render_flash.html' import render_flash_messages %}
+
 <div class="main-profile" id="main">
     <div class="head">
         <div class="menu" id="menu">
@@ -8,14 +10,20 @@
             <h2>User Info</h2>
         </div>
     </div>
-    <form action="" class="update-user">
+    <form class="update-user" method="POST" data-turbo="false">
         <p>User Email</p>
         <input type="text" name="user_email" id="user_email" value="{{ current_user.email }}" disabled>
         <p>Change Password</p>
         <input type="password" name="current_password" placeholder="Current Password">
         <input type="password" name="new_password" placeholder="New Password">
+        {{ render_flash_messages() }}
         <div>
             <input type="submit" value="Change password">
         </div>
     </form>
+    <div class="logout">
+        <a href="{{ url_for('security.logout') }}" target="_self">
+            Logout
+        </a>
+    </div>
 </div>

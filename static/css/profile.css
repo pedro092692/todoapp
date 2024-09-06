@@ -46,9 +46,34 @@ form input{
 }
 
 form input[type=submit]{
+    width: auto;
     padding: 10px;
     background: #A8A8A8;
     font-size: 20px;
     font-weight: 400;
     cursor: pointer;
+}
+
+.main-profile .logout{
+    flex-grow: 1;
+    display: flex;
+    align-items: end;
+}
+
+.logout a{
+    padding: 12px;
+    background: #323232;
+    border: none;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 500px){
+    form input[type=submit], .logout a{
+        width: 100%;
+    }
+
 }

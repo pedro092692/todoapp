@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request, render_template, redirect
+from flask import Flask, url_for, request, render_template, redirect, flash
 from dotenv import load_dotenv
 from turbo_flask import Turbo
 from flask_security import login_required, current_user, verify_password, hash_password
@@ -186,12 +186,20 @@ def register():
     return render_template('security/register_user.html')
 
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    # user_password = verify_password(password='12345678', password_hash=current_user.password)
-    # new_password = '123456789'
-    # User.update_password(current_user, hash_password(new_password))
+
+    if request.method == 'POST':
+        current_password = request.form.get('current_password')
+        new_password = request.form.get('new_password')
+
+        if verify_password(password=current_password, password_hash=current_user.password) and new_password:
+            User.update_password(current_user, hash_password(new_password))
+            flash('your password has been changed.')
+        else:
+            flash('invalid password.')
+
     return render_template('profile.html')
 
 
