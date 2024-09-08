@@ -2,7 +2,7 @@ from flask import Flask, url_for, request, render_template, redirect, flash
 from dotenv import load_dotenv
 from turbo_flask import Turbo
 from flask_security import login_required, current_user, verify_password, hash_password
-from database import DataBase, Task, SubTask, User
+from database import DataBase, Task, SubTask, User, Checklist
 from werkzeug.security import check_password_hash
 import os
 
@@ -35,7 +35,6 @@ db.create_tables()
 def home():
     # completed task
     completed = get_user_completed_task()
-
     # add task
     if request.method == 'POST' and 'add-form' in request.form:
         task_title = request.form.get('task').lstrip()
@@ -206,7 +205,24 @@ def profile():
 @app.route('/checklist', methods=['GET', 'POST'])
 @login_required
 def checklist():
-    return render_template('checklist.html')
+    completed_items = Checklist.get_completed_items(user_id=current_user.id)
+    if request.method == 'POST' and 'item-id' in request.form:
+        item_id = request.form.get('item-id')
+        print(item_id)
+
+    if request.method == 'POST' and 'item-name' in request.form:
+        item_name = request.form.get('item-check')
+        if item_name:
+            user_checklist = current_user.checklist
+            new_item = Checklist.add_new_item(item_name=item_name, user_id=current_user.id)
+            if user_checklist:
+                return render_frame(template='_checklist_item.html', target='checklist', method='prepend',
+                                    content=new_item)
+            else:
+                return render_frame(template='_first_checklist_item.html', target='checklist-content', method='replace',
+                                    content=completed_items)
+
+    return render_template('checklist.html', completed_items=completed_items)
 
 
 

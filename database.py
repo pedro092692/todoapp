@@ -29,6 +29,7 @@ class User(db.Model, fsqla.FsUserMixin):
     password: Mapped[str] = mapped_column(String, nullable=False)
     fs_uniquifier: Mapped[str] = mapped_column(String, nullable=False, unique=True)
     tasks: Mapped[List["Task"]] = relationship(order_by="Task.id.desc()")
+    checklist: Mapped[List["Checklist"]] = relationship(order_by="Checklist.id.desc()")
 
     @staticmethod
     def update_password(user, password):
@@ -95,6 +96,7 @@ class Task(db.Model):
         db.session.delete(task)
         db.session.commit()
 
+
 class SubTask(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     task_id: Mapped[int] = mapped_column(Integer, ForeignKey("task.id"))
@@ -114,6 +116,31 @@ class SubTask(db.Model):
     @staticmethod
     def get_subtask(subtask_id):
         return db.get_or_404(SubTask, subtask_id)
+
+
+class Checklist(db.Model):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("user.id"))
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    completed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+
+    @staticmethod
+    def add_new_item(item_name, user_id):
+        new_item = Checklist(
+            user_id=user_id,
+            name=item_name,
+        )
+        db.session.add(new_item)
+        db.session.commit()
+        return new_item
+
+    @staticmethod
+    def get_completed_items(user_id):
+        completed_items = db.session.query(func.count(Checklist.id)).filter(
+            Checklist.user_id == user_id, Checklist.completed
+        ).scalar()
+
+        return completed_items
 
 
 class DataBase:

@@ -1,0 +1,26 @@
+<div class="content" id="checklist-content">
+    <div class="checklist">
+        <ul id="checklist">
+            {% if current_user.checklist %}
+                {% for item in current_user.checklist %}
+                    {% if not item.completed %}
+                        <li>
+                            <form action="" method="POST">
+                                <input type="checkbox" name="completed-checkbox" class="completed-checkbox">
+                                <input type="hidden" name="item-id" value="{{ item.id }}">
+                            </form>
+                            {{ item.name }}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% else  %}
+                <p>Sorry no list item add new one</p>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="completed {{ 'd-none' if not completed_items }}">
+        <p>completed {{ completed_items }}</p>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+    <div class="completed-list {{ 'd-none' if not completed_items }}"></div>
+</div>

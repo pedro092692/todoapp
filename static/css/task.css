@@ -360,7 +360,7 @@ input:focus{
     background: none;
     padding: 0px;
     height: 24px;
-    width: 30%;
+    width: 100%;
 }
 
 #add-form input[type=submit]{
