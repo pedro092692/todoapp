@@ -203,6 +203,13 @@ def profile():
     return render_template('profile.html')
 
 
+@app.route('/checklist', methods=['GET', 'POST'])
+@login_required
+def checklist():
+    return render_template('checklist.html')
+
+
+
 def render_frame(template, target, method, content, ):
     """
     :param str template this is the template to be render:

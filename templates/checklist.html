@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+<!--title-->
+{% block title %}
+Checklist
+{% endblock title %}
+
+<!--css-->
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/title.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checklist.css') }}">
+{% endblock css %}
+
+<!--content-->
+{% block content %}
+    {% include 'includes/_checklist.html' %}
+{% endblock content %}
+
+<!--js-->
+{% block js %}
+{% endblock js %}
