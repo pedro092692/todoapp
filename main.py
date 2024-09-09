@@ -208,18 +208,19 @@ def checklist():
     completed_items = Checklist.get_completed_items(user_id=current_user.id)
     if request.method == 'POST' and 'item-id' in request.form:
         item_id = request.form.get('item-id')
-        print(item_id)
+        item = Checklist.get_item(item_id=item_id)
+        Checklist.completed_item(item)
+        completed_items = Checklist.get_completed_items(user_id=current_user.id)
+        return render_frame(template='_first_checklist_item.html', target='checklist-content', method='replace',
+                            content=completed_items)
 
     if request.method == 'POST' and 'item-name' in request.form:
         item_name = request.form.get('item-check')
         if item_name:
             user_checklist = current_user.checklist
             new_item = Checklist.add_new_item(item_name=item_name, user_id=current_user.id)
-            if user_checklist:
-                return render_frame(template='_checklist_item.html', target='checklist', method='prepend',
-                                    content=new_item)
-            else:
-                return render_frame(template='_first_checklist_item.html', target='checklist-content', method='replace',
+
+            return render_frame(template='_first_checklist_item.html', target='checklist-content', method='replace',
                                     content=completed_items)
 
     return render_template('checklist.html', completed_items=completed_items)

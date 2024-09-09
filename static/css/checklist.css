@@ -1,21 +1,30 @@
+body{
+    min-height: 100vh;
+}
+
+.main{
+    height: 100%;
+}
+
 .main .content{
     flex-grow: 1;
+    height: 87%;
 }
 
 .main .checklist{
+    max-height: 80%;
     padding: 24px 0px;
-    flex-grow: 1;
-    max-height: 50%;
-    overflow-y: auto;
 }
 
-.checklist ul{
+.list-items{
+    max-height: 100%;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.checklist ul li{
+.item{
     display: flex;
     gap: 8px;
     align-items: center;
@@ -33,10 +42,21 @@ li input[type=checkbox]{
 
 }
 
-.main .completed-list{
-    flex-grow: 1;
-    max-height: 50%;
+.main .completed-list-container{
+    max-height: 80%;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.completed-list-container .completed-list{
+    height: 100%;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .main .completed{
@@ -55,6 +75,7 @@ li input[type=checkbox]{
 }
 
 .add-item-container .add-item{
+    margin-top: 24px;
     padding: 12px;
     height: 48px;
     border-radius: 8px;

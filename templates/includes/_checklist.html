@@ -12,11 +12,11 @@
     </div>
     <div class="content" id="checklist-content">
         <div class="checklist">
-            <ul id="checklist">
+            <ul id="checklist" class="list-items">
                 {% if current_user.checklist %}
                     {% for item in current_user.checklist %}
                         {% if not item.completed %}
-                            <li>
+                            <li id="uncompleted-item-{{ item.id }}" class="item">
                                 <form action="" method="POST">
                                     <input type="checkbox" name="completed-checkbox" class="completed-checkbox">
                                     <input type="hidden" name="item-id" value="{{ item.id }}">
@@ -30,11 +30,32 @@
                 {% endif %}
             </ul>
         </div>
+
+        <div class="completed-list-container">
             <div class="completed {{ 'd-none' if not completed_items }}">
-                <p>completed {{ completed_items }}</p>
-                <i class="fa-solid fa-chevron-right"></i>
+                    <p>completed {{ completed_items }}</p>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            <div class="completed-list {{ 'd-none' if not completed_items }}">
+                <ul id="checklist-completed" class="completed-list">
+                    {% if current_user.checklist %}
+                        {% for item in current_user.checklist %}
+                            {% if item.completed %}
+                                <li id="completed-item-{{ item.id }}" class="item">
+                                    <form action="" method="POST">
+                                        <input type="checkbox" checked name="completed-checkbox" class="completed-checkbox">
+                                        <input type="hidden" name="item-id" value="{{ item.id }}">
+                                    </form>
+                                    {{ item.name }}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    {% else  %}
+                        <p>Sorry no list item add new one</p>
+                    {% endif %}
+                </ul>
             </div>
-            <div class="completed-list {{ 'd-none' if not completed_items }}"></div>
+        </div>
     </div>
     <div class="add-item-container">
         <div class="add-item">

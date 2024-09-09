@@ -142,6 +142,16 @@ class Checklist(db.Model):
 
         return completed_items
 
+    @staticmethod
+    def get_item(item_id):
+        item = db.get_or_404(Checklist, item_id)
+        return item
+
+    @staticmethod
+    def completed_item(item):
+        item.completed = True
+        db.session.commit()
+
 
 class DataBase:
 
