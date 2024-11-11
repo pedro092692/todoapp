@@ -119,7 +119,6 @@ function delete_task(){
     })
 
     cancel_button.addEventListener('click', (event)=>{
-        console.log('cancel');
         event.preventDefault();
         delete_div.style.display = 'none';
     })

@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, Boolean, ForeignKey, DateTime, func, and_
+from sqlalchemy import Integer, String, Boolean, ForeignKey, DateTime, func, and_, delete
 from flask_security import Security, SQLAlchemyUserDatastore, hash_password
 from flask_security.models import fsqla_v3 as fsqla
 from datetime import datetime
@@ -148,9 +148,22 @@ class Checklist(db.Model):
         return item
 
     @staticmethod
-    def completed_item(item):
-        item.completed = True
+    def completed_item(item, completed=True):
+        item.completed = completed
         db.session.commit()
+
+    @staticmethod
+    def delete_all_completed_items(user_id):
+        stm = delete(Checklist).filter(Checklist.user_id == user_id, Checklist.completed)
+        db.session.execute(stm)
+        db.session.commit()
+
+    @staticmethod
+    def delete_checklist(user_id):
+        stm = delete(Checklist).filter(Checklist.user_id == user_id)
+        db.session.execute(stm)
+        db.session.commit()
+
 
 
 class DataBase:

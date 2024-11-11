@@ -205,23 +205,41 @@ def profile():
 @app.route('/checklist', methods=['GET', 'POST'])
 @login_required
 def checklist():
+    # completed list item
     completed_items = Checklist.get_completed_items(user_id=current_user.id)
     if request.method == 'POST' and 'item-id' in request.form:
         item_id = request.form.get('item-id')
         item = Checklist.get_item(item_id=item_id)
         Checklist.completed_item(item)
         completed_items = Checklist.get_completed_items(user_id=current_user.id)
-        return render_frame(template='_first_checklist_item.html', target='checklist-content', method='replace',
+        return render_frame(template='_checklist_update.html', target='checklist-content', method='replace',
                             content=completed_items)
-
+    # add item to checklist
     if request.method == 'POST' and 'item-name' in request.form:
         item_name = request.form.get('item-check')
         if item_name:
             user_checklist = current_user.checklist
             new_item = Checklist.add_new_item(item_name=item_name, user_id=current_user.id)
 
-            return render_frame(template='_first_checklist_item.html', target='checklist-content', method='replace',
+            return render_frame(template='_checklist_update.html', target='checklist-content', method='replace',
                                     content=completed_items)
+    # uncompleted item
+    if request.method == 'POST' and 'item-id-completed' in request.form:
+        item_id = request.form.get('item-id-completed')
+        item = Checklist.get_item(item_id=item_id)
+        Checklist.completed_item(item, completed=False)
+        return render_frame(template='_checklist_update.html', target='checklist-content', method='replace',
+                                    content=Checklist.get_completed_items(user_id=current_user.id))
+    # delete all completed
+    if request.method == 'POST' and 'delete-completed' in request.form:
+        Checklist.delete_all_completed_items(user_id=current_user.id)
+        return render_frame(template='_checklist_update.html', target='checklist-content', method='replace',
+                            content=Checklist.get_completed_items(user_id=current_user.id))
+    # delete all checklist
+    if request.method == 'POST' and 'delete-checklist' in request.form:
+        Checklist.delete_checklist(user_id=current_user.id)
+        return render_frame(template='_checklist_update.html', target='checklist-content', method='replace',
+                            content=Checklist.get_completed_items(user_id=current_user.id))
 
     return render_template('checklist.html', completed_items=completed_items)
 
@@ -250,4 +268,4 @@ def get_user_completed_task():
     return Task.count_completed(user_id=current_user.id)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

@@ -18,10 +18,44 @@
             {% endif %}
         </ul>
     </div>
-    <div class="completed {{ 'd-none' if not content }}">
-        <p>completed {{ content }}</p>
-        <i class="fa-solid fa-chevron-right"></i>
+
+    {% if content %}
+    <div class="completed-list-container">
+            <div class="completed">
+                    <p>completed {{ content }}</p>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            <div class="completed-list">
+                <ul id="checklist-completed" class="completed-list">
+                    {% if current_user.checklist %}
+                        {% for item in current_user.checklist %}
+                            {% if item.completed %}
+                                <li id="completed-item-{{ item.id }}" class="item line-through">
+                                    <form action="" method="POST">
+                                        <input type="checkbox" checked name="uncompleted-checkbox" class="completed-checkbox">
+                                        <input type="hidden" name="item-id-completed" value="{{ item.id }}">
+                                    </form>
+                                    {{ item.name }}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+                <div class="delete-box-checklist">
+                    <form action="" method="POST" id="delete-all-completed-form">
+                        <input type="hidden" name="delete-completed">
+                        <input type="submit"
+                               class="delete"
+                               name="delete-completed" id="delete-checklist" value="Delete all Completed">
+                    </form>
+                    <form action="" method="POST" id="delete-checklist-form">
+                        <input type="hidden" name="delete-checklist">
+                        <input type="submit" class="delete"
+                               name="delete-all-checklist" id="checklist-all"  value="Delete Checklist">
+                    </form>
+                </div>
+        {% endif %}
     </div>
-    <div class="completed-list {{ 'd-none' if not content }}"></div>
     <script src="{{ url_for('static', filename='js/checklist.js') }}"> </script>
 </div>
