@@ -1,5 +1,5 @@
-instance
-.idea
 .env
+.idea
 __pycache__
 .DS_Store
+app.db

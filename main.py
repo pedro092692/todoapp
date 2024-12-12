@@ -267,5 +267,6 @@ def get_user_completed_task():
     """
     return Task.count_completed(user_id=current_user.id)
 
+
 if __name__ == "__main__":
     app.run(debug=False)
