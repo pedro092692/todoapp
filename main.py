@@ -269,4 +269,4 @@ def get_user_completed_task():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
