@@ -231,12 +231,12 @@ def checklist():
         return render_frame(template='_checklist_update.html', target='checklist-content', method='replace',
                                     content=Checklist.get_completed_items(user_id=current_user.id))
     # delete all completed
-    if request.method == 'POST' and 'delete-completed' in request.form:
+    if request.method == 'POST' and 'completed' in request.form:
         Checklist.delete_all_completed_items(user_id=current_user.id)
         return render_frame(template='_checklist_update.html', target='checklist-content', method='replace',
                             content=Checklist.get_completed_items(user_id=current_user.id))
     # delete all checklist
-    if request.method == 'POST' and 'delete-checklist' in request.form:
+    if request.method == 'POST' and 'all' in request.form:
         Checklist.delete_checklist(user_id=current_user.id)
         return render_frame(template='_checklist_update.html', target='checklist-content', method='replace',
                             content=Checklist.get_completed_items(user_id=current_user.id))
@@ -269,4 +269,4 @@ def get_user_completed_task():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

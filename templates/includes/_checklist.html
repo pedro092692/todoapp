@@ -56,15 +56,10 @@
             {% if completed_items %}
                 <div class="delete-box-checklist">
                     <form action="" method="POST" id="delete-all-completed-form">
-                        <input type="hidden" name="delete-completed">
+                        <input type="hidden" name="completed">
                         <input type="submit"
                                class="delete"
                                name="delete-completed" id="delete-checklist" value="Delete all Completed">
-                    </form>
-                    <form action="" method="POST" id="delete-checklist-form">
-                        <input type="hidden" name="delete-checklist">
-                        <input type="submit" class="delete"
-                               name="delete-all-checklist" id="checklist-all"  value="Delete Checklist">
                     </form>
                 </div>
             {% endif %}

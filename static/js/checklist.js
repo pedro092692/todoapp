@@ -12,7 +12,7 @@ function complete_checklist_item(query){
     }
 }
 
-function delete_checklist(form_idm, trigger, title){
+function delete_checklist(form_id, trigger, title){
     const delete_container = document.getElementById('delete-container');
     const cancel_button = document.getElementById('cancel-button');
     const confirm_button = document.getElementById('delete-button');
