@@ -1,5 +1,5 @@
 instance
 .idea
 .env
-__pycacyhe__
+__pycache__
 .DS_Store
